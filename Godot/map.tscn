@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://blg66wu2kg1xu"]
+[gd_scene load_steps=11 format=3 uid="uid://blg66wu2kg1xu"]
 
 [ext_resource type="Script" path="res://map.gd" id="1_1cfr0"]
 [ext_resource type="Texture2D" uid="uid://c1xcad80650fn" path="res://map.png" id="1_cjy6w"]
+[ext_resource type="StyleBox" uid="uid://bugc84wo78301" path="res://button_normal.tres" id="3_0sv3k"]
 [ext_resource type="Texture2D" uid="uid://c4672jo17didf" path="res://newspaper.png" id="3_1xiwt"]
+[ext_resource type="PackedScene" uid="uid://coso5sdjy2f1k" path="res://region_panel.tscn" id="3_vjrkh"]
+[ext_resource type="StyleBox" uid="uid://b43o1nyv0s1mf" path="res://button_hover.tres" id="4_0ak6d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqiyp"]
 bg_color = Color(0, 0.0784314, 0.211765, 1)
@@ -13,6 +16,13 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ube54"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg2kx"]
 bg_color = Color(0, 0.0784314, 0.211765, 1)
@@ -26,11 +36,12 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_1cfr0")
 
 [node name="Background" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(3840, 2160)
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -38,134 +49,173 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.458824, 0.576471, 0.784314, 1)
 
-[node name="Region1" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 322.0
-offset_top = 74.0
-offset_right = 596.0
-offset_bottom = 315.0
-
-[node name="Region2" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 402.0
-offset_top = 324.0
-offset_right = 569.0
-offset_bottom = 577.0
-
-[node name="Region3" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 613.0
-offset_top = 270.0
-offset_right = 781.0
-offset_bottom = 486.0
-
-[node name="Region4" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 613.0
-offset_top = 100.0
-offset_right = 763.0
-offset_bottom = 249.0
-
-[node name="Region5" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 787.0
-offset_top = 100.0
-offset_right = 1005.0
-offset_bottom = 324.0
-
-[node name="Region6" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_left = 928.0
-offset_top = 357.0
-offset_right = 1086.0
-offset_bottom = 566.0
-
 [node name="WorldMap" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 1295.0
 grow_horizontal = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="WorldMap"]
-layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 1295.0
 theme_override_constants/margin_left = 172
 theme_override_constants/margin_top = 55
 theme_override_constants/margin_right = -37
 
 [node name="TextureRect" type="TextureRect" parent="WorldMap/MarginContainer2"]
 custom_minimum_size = Vector2(0, 1080)
-layout_mode = 2
+offset_left = 172.0
+offset_top = 55.0
+offset_right = 1189.0
+offset_bottom = 1295.0
 texture = ExtResource("1_cjy6w")
 ignore_texture_size = true
 
+[node name="NorthAmerica" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 328.0
+offset_top = 122.0
+offset_right = 602.0
+offset_bottom = 363.0
+
+[node name="NorthAmerica" parent="NorthAmerica" instance=ExtResource("3_vjrkh")]
+
+[node name="SouthAmerica" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 375.0
+offset_top = 355.0
+offset_right = 542.0
+offset_bottom = 608.0
+
+[node name="SouthAmerica" parent="SouthAmerica" instance=ExtResource("3_vjrkh")]
+
+[node name="Africa" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 632.0
+offset_top = 294.0
+offset_right = 800.0
+offset_bottom = 510.0
+
+[node name="Africa" parent="Africa" instance=ExtResource("3_vjrkh")]
+
+[node name="Europe" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 594.0
+offset_top = 74.0
+offset_right = 744.0
+offset_bottom = 223.0
+
+[node name="Europe" parent="Europe" instance=ExtResource("3_vjrkh")]
+
+[node name="Asia" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 887.0
+offset_top = 99.0
+offset_right = 1105.0
+offset_bottom = 323.0
+
+[node name="Asia" parent="Asia" instance=ExtResource("3_vjrkh")]
+
+[node name="Oceania" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 901.0
+offset_top = 375.0
+offset_right = 1059.0
+offset_bottom = 584.0
+
+[node name="Oceania" parent="Oceania" instance=ExtResource("3_vjrkh")]
+
 [node name="Sidebar" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(300, 0)
-layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eqiyp")
 
 [node name="MarginContainer" type="MarginContainer" parent="Sidebar"]
-layout_mode = 2
+offset_right = 300.0
+offset_bottom = 648.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VSplitContainer" type="VSplitContainer" parent="Sidebar/MarginContainer"]
-layout_mode = 2
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 280.0
+offset_bottom = 628.0
 dragger_visibility = 1
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer"]
-layout_mode = 2
+offset_right = 260.0
+offset_bottom = 116.0
 theme_override_font_sizes/font_size = 40
 text = "Social Mediæty"
 horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Sidebar/MarginContainer/VSplitContainer"]
-layout_mode = 2
+offset_top = 128.0
+offset_right = 260.0
+offset_bottom = 618.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8tq4d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer"]
-layout_mode = 2
+offset_right = 260.0
+offset_bottom = 490.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_right = 260.0
+offset_bottom = 45.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 45.0
 theme_override_font_sizes/font_size = 23
 text = "Edicts
 "
 horizontal_alignment = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 49.0
+offset_right = 260.0
+offset_bottom = 80.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3"]
-layout_mode = 2
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 250.0
+offset_bottom = 31.0
 dragger_visibility = 1
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer"]
-layout_mode = 2
-text = "Sociability:"
+offset_right = 79.0
+offset_bottom = 26.0
+text = "Sociability"
 
 [node name="OptionButton" type="OptionButton" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer"]
-layout_mode = 2
+offset_left = 91.0
+offset_right = 240.0
+offset_bottom = 26.0
+theme_override_styles/focus = ExtResource("3_0sv3k")
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
+alignment = 1
 item_count = 3
 selected = 1
 popup/item_0/text = "Isolate"
@@ -176,21 +226,33 @@ popup/item_2/text = "Evangelize"
 popup/item_2/id = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 84.0
+offset_right = 260.0
+offset_bottom = 115.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 250.0
+offset_bottom = 26.0
 dragger_visibility = 1
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer"]
-layout_mode = 2
-text = "Worship:   "
+custom_minimum_size = Vector2(79.63, 0)
+offset_right = 79.0
+offset_bottom = 26.0
+text = "Worship   "
 
 [node name="OptionButton" type="OptionButton" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer"]
-layout_mode = 2
+offset_left = 91.0
+offset_right = 240.0
+offset_bottom = 26.0
+theme_override_styles/focus = ExtResource("3_0sv3k")
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
+alignment = 1
 item_count = 3
 selected = 1
 popup/item_0/text = "Rarely"
@@ -201,210 +263,315 @@ popup/item_2/text = "Daily"
 popup/item_2/id = 2
 
 [node name="HSeparator2" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 119.0
+offset_right = 260.0
+offset_bottom = 123.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 127.0
+offset_right = 260.0
+offset_bottom = 163.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 36.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer/HSplitContainer"]
-layout_mode = 2
-text = "Followers:"
+offset_right = 75.0
+offset_bottom = 26.0
+text = "Followers"
 
 [node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer/HSplitContainer"]
-layout_mode = 2
+offset_left = 75.0
+offset_right = 240.0
+offset_bottom = 26.0
 text = "0
 "
 horizontal_alignment = 2
 
 [node name="MarginContainer8" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 167.0
+offset_right = 260.0
+offset_bottom = 193.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 250.0
+offset_bottom = 26.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8/HSplitContainer"]
-layout_mode = 2
-text = "Souls:"
+offset_right = 110.0
+offset_bottom = 26.0
+text = "Tentacruelists"
 
 [node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8/HSplitContainer"]
-layout_mode = 2
+offset_left = 110.0
+offset_right = 240.0
+offset_bottom = 26.0
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="MarginContainer16" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+offset_top = 197.0
+offset_right = 260.0
+offset_bottom = 223.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer16"]
+offset_left = 10.0
+offset_right = 250.0
+offset_bottom = 26.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer16/HSplitContainer"]
+offset_right = 41.0
+offset_bottom = 26.0
+text = "Souls"
+
+[node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer16/HSplitContainer"]
+offset_left = 41.0
+offset_right = 240.0
+offset_bottom = 26.0
 text = "0
 "
 horizontal_alignment = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 227.0
+offset_right = 260.0
+offset_bottom = 263.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 250.0
+offset_bottom = 26.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5/HSplitContainer"]
-layout_mode = 2
-text = "Unassigned Acolytes:"
+offset_right = 128.0
+offset_bottom = 26.0
+text = "Unused Acolytes"
 
 [node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5/HSplitContainer"]
-layout_mode = 2
+offset_left = 128.0
+offset_right = 240.0
+offset_bottom = 26.0
 text = "0
 "
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 267.0
+offset_right = 260.0
+offset_bottom = 271.0
 
 [node name="MarginContainer6" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 275.0
+offset_right = 260.0
+offset_bottom = 320.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer6"]
-layout_mode = 2
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 250.0
+offset_bottom = 40.0
 theme_override_font_sizes/font_size = 23
-text = "Soul Shop
+text = "Planetwide Shop
 "
 horizontal_alignment = 1
 
 [node name="MarginContainer11" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 324.0
+offset_right = 260.0
+offset_bottom = 328.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
 [node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer11"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 4.0
 
 [node name="MarginContainer7" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 332.0
+offset_right = 260.0
+offset_bottom = 358.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 26.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
 layout_direction = 2
-layout_mode = 2
+offset_right = 110.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
-layout_mode = 2
+offset_left = 110.0
+offset_right = 220.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "100M"
 
 [node name="MarginContainer12" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 362.0
+offset_right = 260.0
+offset_bottom = 366.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
 [node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 4.0
 
 [node name="MarginContainer9" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 370.0
+offset_right = 260.0
+offset_bottom = 401.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 31.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9/HSplitContainer"]
 layout_direction = 2
-layout_mode = 2
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 28.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9/HSplitContainer"]
-layout_mode = 2
+offset_left = 110.0
+offset_right = 220.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
 text = "100M"
 
 [node name="MarginContainer13" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 405.0
+offset_right = 260.0
+offset_bottom = 409.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
 [node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer13"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 4.0
 
 [node name="MarginContainer10" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 413.0
+offset_right = 260.0
+offset_bottom = 444.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 31.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10/HSplitContainer"]
 layout_direction = 2
-layout_mode = 2
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 28.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10/HSplitContainer"]
-layout_mode = 2
+offset_left = 110.0
+offset_right = 220.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
 text = "100M"
 
 [node name="MarginContainer14" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 448.0
+offset_right = 260.0
+offset_bottom = 452.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
 [node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer14"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 4.0
 
 [node name="MarginContainer15" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 456.0
+offset_right = 260.0
+offset_bottom = 487.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15"]
-layout_mode = 2
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 31.0
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15/HSplitContainer"]
 layout_direction = 2
-layout_mode = 2
+offset_top = 2.0
+offset_right = 110.0
+offset_bottom = 28.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15/HSplitContainer"]
-layout_mode = 2
+offset_left = 110.0
+offset_right = 220.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
 text = "100M"
 
 [node name="TimeBar" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -416,40 +583,345 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TimeBar"]
-layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 378.0
+offset_bottom = 57.0
 
-[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 5
+[node name="CenterContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+offset_right = 41.0
+offset_bottom = 37.0
 
-[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer"]
-layout_mode = 2
+[node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer"]
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
+
+[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer"]
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer/MarginContainer"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  1x  "
 
-[node name="MarginContainer2" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 5
+[node name="CenterContainer2" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+offset_left = 45.0
+offset_right = 86.0
+offset_bottom = 37.0
 
-[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer2"]
-layout_mode = 2
+[node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer2"]
+visible = false
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
+
+[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer2"]
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer2/MarginContainer"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  2x  "
 
-[node name="MarginContainer3" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_right = 10
+[node name="CenterContainer3" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+offset_left = 90.0
+offset_right = 131.0
+offset_bottom = 37.0
 
-[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer3"]
-layout_mode = 2
+[node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer3"]
+visible = false
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
+
+[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer3"]
+offset_right = 41.0
+offset_bottom = 37.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer3/MarginContainer"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
+theme_override_styles/normal = ExtResource("3_0sv3k")
+theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  4x  "
 
-[node name="Label" type="Label" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
+[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+offset_left = 135.0
+offset_right = 355.0
+offset_bottom = 37.0
+theme_override_constants/margin_left = 10
+
+[node name="Label" type="Label" parent="TimeBar/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(210, 0)
+offset_left = 10.0
+offset_right = 220.0
+offset_bottom = 37.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "00:01 2023-01-01"
 
+[node name="Shop" type="MarginContainer" parent="."]
+visible = false
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="Shop"]
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 1102.0
+offset_bottom = 601.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
+
+[node name="TextureRect" type="TextureRect" parent="Shop/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+offset_left = 552.0
+offset_right = 752.0
+offset_bottom = 200.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("3_1xiwt")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer"]
+offset_right = 752.0
+offset_bottom = 551.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Shop/PanelContainer/MarginContainer"]
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 712.0
+offset_bottom = 511.0
+
+[node name="Label" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
+offset_right = 672.0
+offset_bottom = 113.0
+theme_override_font_sizes/font_size = 80
+text = "Soul Shop"
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
+offset_top = 117.0
+offset_right = 672.0
+offset_bottom = 149.0
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 274
+theme_override_constants/margin_bottom = 14
+
+[node name="HSeparator" type="HSeparator" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
+offset_top = 14.0
+offset_right = 398.0
+offset_bottom = 18.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
+offset_top = 153.0
+offset_right = 672.0
+offset_bottom = 491.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_right = 672.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 24
+text = "Buy Targeted Ads"
+
+[node name="Label2" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 41.0
+offset_right = 672.0
+offset_bottom = 93.0
+text = "If you can't pay with money, you can pay with personal data, and what's more personal than a soul?"
+autowrap_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 97.0
+offset_right = 672.0
+offset_bottom = 128.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer"]
+offset_right = 330.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Boost Eye on V Kontent (100k Souls)"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer"]
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer2"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Attack Tent on Facepage (100k Souls)"
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 132.0
+offset_right = 672.0
+offset_bottom = 163.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2"]
+offset_right = 330.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Boost Eye on Twittly (100k Souls)"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2"]
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer2"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Attack Tent on Twittly (100k Souls)"
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 167.0
+offset_right = 672.0
+offset_bottom = 171.0
+theme_override_constants/margin_bottom = 4
+
+[node name="Label3" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 175.0
+offset_right = 672.0
+offset_bottom = 212.0
+theme_override_font_sizes/font_size = 24
+text = "Bribe Politicians and Rich People"
+
+[node name="Label4" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 216.0
+offset_right = 672.0
+offset_bottom = 268.0
+text = "It is well known that politicians don't have souls. You're happy to provide a few spares for their collections."
+autowrap_mode = 2
+
+[node name="HSplitContainer3" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 272.0
+offset_right = 672.0
+offset_bottom = 303.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3"]
+offset_right = 330.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Endorse Eye (100k Souls)"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3"]
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer2"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Disparage Tent (100k Souls)"
+
+[node name="HSplitContainer4" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+offset_top = 307.0
+offset_right = 672.0
+offset_bottom = 338.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4"]
+offset_right = 330.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4/MarginContainer"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Unban Twittly (100k Souls)"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4"]
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4/MarginContainer2"]
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 31.0
+size_flags_horizontal = 3
+text = "Ban Facepage (100k Souls)"
+
 [node name="News" type="PanelContainer" parent="."]
-layout_mode = 1
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -457,19 +929,20 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PopUp" type="MarginContainer" parent="News"]
-layout_mode = 2
 theme_override_constants/margin_left = 350
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="PanelContainer" type="PanelContainer" parent="News/PopUp"]
-layout_mode = 2
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 828.0
+offset_bottom = 439.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
 
 [node name="TextureRect" type="TextureRect" parent="News/PopUp/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("3_1xiwt")
@@ -477,31 +950,32 @@ ignore_texture_size = true
 stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer"]
-layout_mode = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="VBoxContainer" parent="News/PopUp/PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 438.0
+offset_bottom = 349.0
 
 [node name="Label" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "BREAKING"
 
 [node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 274
 theme_override_constants/margin_bottom = 40
 
 [node name="HSeparator" type="HSeparator" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
+offset_top = 14.0
+offset_right = 3.0
+offset_bottom = 18.0
 
 [node name="Label2" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Headlines across the world lamented the loss of X of your followers yesterday, but they somehow blamed your brother and called them martyrs. 
 
@@ -509,13 +983,15 @@ Don't they realize the whole point of having followers is to take advantage of t
 autowrap_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
 theme_override_constants/margin_top = 14
 
 [node name="Label3" type="RichTextLabel" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
 theme_override_font_sizes/italics_font_size = 24
 bbcode_enabled = true
 text = "[i]Tentacruelty has a harder time spreading"
 fit_content_height = true
 autowrap_mode = 2
+
+[connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [1]]
+[connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer2/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [2]]
+[connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer3/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [4]]
