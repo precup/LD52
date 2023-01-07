@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://8ixxo2dxg46u"]
+
+[ext_resource type="PackedScene" uid="uid://blg66wu2kg1xu" path="res://map.tscn" id="1_o2tx5"]
+[ext_resource type="PackedScene" uid="uid://dmmw0fkm2vppi" path="res://space.tscn" id="2_tgmmd"]
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Map" parent="." instance=ExtResource("1_o2tx5")]
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="space" parent="." instance=ExtResource("2_tgmmd")]
+visible = false
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2

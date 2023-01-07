@@ -1,0 +1,521 @@
+[gd_scene load_steps=7 format=3 uid="uid://blg66wu2kg1xu"]
+
+[ext_resource type="Script" path="res://map.gd" id="1_1cfr0"]
+[ext_resource type="Texture2D" uid="uid://c1xcad80650fn" path="res://map.png" id="1_cjy6w"]
+[ext_resource type="Texture2D" uid="uid://c4672jo17didf" path="res://newspaper.png" id="3_1xiwt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqiyp"]
+bg_color = Color(0, 0.0784314, 0.211765, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tq4d"]
+bg_color = Color(0.223529, 0.337255, 0.47451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg2kx"]
+bg_color = Color(0, 0.0784314, 0.211765, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Map" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_1cfr0")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(3840, 2160)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.458824, 0.576471, 0.784314, 1)
+
+[node name="Region1" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 322.0
+offset_top = 74.0
+offset_right = 596.0
+offset_bottom = 315.0
+
+[node name="Region2" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 402.0
+offset_top = 324.0
+offset_right = 569.0
+offset_bottom = 577.0
+
+[node name="Region3" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 613.0
+offset_top = 270.0
+offset_right = 781.0
+offset_bottom = 486.0
+
+[node name="Region4" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 613.0
+offset_top = 100.0
+offset_right = 763.0
+offset_bottom = 249.0
+
+[node name="Region5" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 787.0
+offset_top = 100.0
+offset_right = 1005.0
+offset_bottom = 324.0
+
+[node name="Region6" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 928.0
+offset_top = 357.0
+offset_right = 1086.0
+offset_bottom = 566.0
+
+[node name="WorldMap" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 1295.0
+grow_horizontal = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="WorldMap"]
+layout_mode = 2
+theme_override_constants/margin_left = 172
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = -37
+
+[node name="TextureRect" type="TextureRect" parent="WorldMap/MarginContainer2"]
+custom_minimum_size = Vector2(0, 1080)
+layout_mode = 2
+texture = ExtResource("1_cjy6w")
+ignore_texture_size = true
+
+[node name="Sidebar" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eqiyp")
+
+[node name="MarginContainer" type="MarginContainer" parent="Sidebar"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Sidebar/MarginContainer"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Social Mediæty"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Sidebar/MarginContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8tq4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Edicts
+"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer"]
+layout_mode = 2
+text = "Sociability:"
+
+[node name="OptionButton" type="OptionButton" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer"]
+layout_mode = 2
+item_count = 3
+selected = 1
+popup/item_0/text = "Isolate"
+popup/item_0/id = 0
+popup/item_1/text = "Normal"
+popup/item_1/id = 1
+popup/item_2/text = "Evangelize"
+popup/item_2/id = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer"]
+layout_mode = 2
+text = "Worship:   "
+
+[node name="OptionButton" type="OptionButton" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer"]
+layout_mode = 2
+item_count = 3
+selected = 1
+popup/item_0/text = "Rarely"
+popup/item_0/id = 0
+popup/item_1/text = "Weekly"
+popup/item_1/id = 1
+popup/item_2/text = "Daily"
+popup/item_2/id = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer/HSplitContainer"]
+layout_mode = 2
+text = "Followers:"
+
+[node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer/HSplitContainer"]
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="MarginContainer8" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8/HSplitContainer"]
+layout_mode = 2
+text = "Souls:"
+
+[node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer8/HSplitContainer"]
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5/HSplitContainer"]
+layout_mode = 2
+text = "Unassigned Acolytes:"
+
+[node name="Label2" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5/HSplitContainer"]
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Soul Shop
+"
+horizontal_alignment = 1
+
+[node name="MarginContainer11" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer11"]
+layout_mode = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Better Bribes"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100M"
+
+[node name="MarginContainer12" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12"]
+layout_mode = 2
+
+[node name="MarginContainer9" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9/HSplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Better Bribes"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer9/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100M"
+
+[node name="MarginContainer13" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer13"]
+layout_mode = 2
+
+[node name="MarginContainer10" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10/HSplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Better Bribes"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer10/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100M"
+
+[node name="MarginContainer14" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSeparator3" type="HSeparator" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer14"]
+layout_mode = 2
+
+[node name="MarginContainer15" type="MarginContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15"]
+layout_mode = 2
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15/HSplitContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Better Bribes"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer15/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100M"
+
+[node name="TimeBar" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -398.0
+offset_bottom = 57.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TimeBar"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "  1x  "
+
+[node name="MarginContainer2" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "  2x  "
+
+[node name="MarginContainer3" type="MarginContainer" parent="TimeBar/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="TimeBar/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+text = "  4x  "
+
+[node name="Label" type="Label" parent="TimeBar/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "00:01 2023-01-01"
+
+[node name="News" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PopUp" type="MarginContainer" parent="News"]
+layout_mode = 2
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="PanelContainer" type="PanelContainer" parent="News/PopUp"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
+
+[node name="TextureRect" type="TextureRect" parent="News/PopUp/PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("3_1xiwt")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="VBoxContainer" parent="News/PopUp/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "BREAKING"
+
+[node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 274
+theme_override_constants/margin_bottom = 40
+
+[node name="HSeparator" type="HSeparator" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Headlines across the world lamented the loss of X of your followers yesterday, but they somehow blamed your brother and called them martyrs. 
+
+Don't they realize the whole point of having followers is to take advantage of them?"
+autowrap_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 14
+
+[node name="Label3" type="RichTextLabel" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/italics_font_size = 24
+bbcode_enabled = true
+text = "[i]Tentacruelty has a harder time spreading"
+fit_content_height = true
+autowrap_mode = 2

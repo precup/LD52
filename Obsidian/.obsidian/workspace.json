@@ -1,0 +1,170 @@
+{
+  "main": {
+    "id": "2929727ae5167831",
+    "type": "split",
+    "children": [
+      {
+        "id": "4dd85c7d448c1b99",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e7a7fc9ec5576f9d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Titles.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "f670157a1ac82f44",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Gameplay.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "e90e327913b99631",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Gameplay.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "d671ccb8431ded89",
+    "type": "split",
+    "children": [
+      {
+        "id": "a5c9e25eb1fc9cc3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c3a7c53ae1337e59",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5f5e3bd61731e8e8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "3908661f4816401e",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "acd2b665e689a99f",
+    "type": "split",
+    "children": [
+      {
+        "id": "4108c744ae265a09",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3669607cf7193770",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Gameplay.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "769a07e251148d7c",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Gameplay.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "bea27962da9b4217",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "0fb428bda11b7a43",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Gameplay.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "f670157a1ac82f44",
+  "lastOpenFiles": [
+    "Titles.md",
+    "Events.md",
+    "Gameplay.md"
+  ]
+}
