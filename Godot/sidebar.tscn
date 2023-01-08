@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://de2j3mhs58v7o"]
+[gd_scene load_steps=8 format=3 uid="uid://de2j3mhs58v7o"]
 
 [ext_resource type="Script" path="res://Sidebar.gd" id="1_i33p0"]
 [ext_resource type="StyleBox" uid="uid://bugc84wo78301" path="res://button_normal.tres" id="2_3md70"]
 [ext_resource type="StyleBox" uid="uid://b43o1nyv0s1mf" path="res://button_hover.tres" id="3_6u66h"]
+[ext_resource type="Texture2D" uid="uid://d3genw6pfi88" path="res://you.png" id="4_4ybmg"]
+[ext_resource type="Texture2D" uid="uid://biopvv2wyd7tx" path="res://brother0.png" id="5_71aue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqiyp"]
 bg_color = Color(0, 0.0784314, 0.211765, 1)
@@ -703,6 +705,16 @@ offset_bottom = 26.0
 theme_override_styles/normal = ExtResource("2_3md70")
 theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
+
+[node name="You" type="Sprite2D" parent="."]
+position = Vector2(-38, 29)
+scale = Vector2(0.523, 0.523)
+texture = ExtResource("4_4ybmg")
+
+[node name="Brother0" type="Sprite2D" parent="."]
+position = Vector2(666, 587)
+scale = Vector2(0.534, 0.534)
+texture = ExtResource("5_71aue")
 
 [connection signal="item_selected" from="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer/OptionButton" to="." method="_on_option_button_item_selected"]

@@ -13,7 +13,7 @@ You'll need 3 billion souls to teleport the planet, and you'll need to do it bef
 You can harvest the souls of your followers at any time, although that will also cause them to die, which makes it difficult for them to post on social media. "
 ]
 
-var state = 7 if GameData.is_debug else 0
+var state = 22 if GameData.is_debug else 0
 
 var display_time = 0
 var delay = 500
@@ -23,6 +23,13 @@ var lines = [""]
 func show_ending():
     get_tree().paused = true
     visible = true
+    advance_state()
+
+
+func show_failure():
+    get_tree().paused = true
+    visible = true
+    state = 17
     advance_state()
 
 
@@ -82,3 +89,19 @@ func advance_state():
             BROTHER.frame = 5
         17:
             LABEL.text = "Thanks for playing! -Arch"
+        18:
+            BROTHER.frame = 0
+            LABEL.text = "Your brother ungulates in a very smug manner."
+        19:
+            LABEL.text = ""
+        20:
+            BROTHER.frame = 6
+        21:
+            LABEL.text = "Ugh. He's not going to shut up about this for the next million years."
+        22:
+            LABEL.text = "Better luck next time! Click to restart."
+        23:
+            GameData.data = GameData.INITIAL_DATA.duplicate(true)
+            visible = false
+            get_tree().paused = false
+            

@@ -3,7 +3,7 @@ extends PanelContainer
 @onready var FLAVOR_LABEL = $PopUp/PanelContainer/MarginContainer/HBoxContainer/Label2
 
 var display_time = 0
-var delay = 1000
+var delay = 500
 var lines = [""]
 
 

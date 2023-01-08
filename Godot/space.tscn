@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmmw0fkm2vppi"]
+[gd_scene load_steps=15 format=3 uid="uid://dmmw0fkm2vppi"]
 
 [ext_resource type="Texture2D" uid="uid://cl8i1ypywxqbd" path="res://space.png" id="1_ba783"]
 [ext_resource type="Texture2D" uid="uid://d3genw6pfi88" path="res://you.png" id="2_uwvhj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cmos4erd74w8y" path="res://brother2.png" id="5_w03qg"]
 [ext_resource type="Texture2D" uid="uid://cokgoudkqk4ti" path="res://brother3.png" id="6_y8bl8"]
 [ext_resource type="Texture2D" uid="uid://y60k5kd76f7s" path="res://brother4.png" id="7_nyaus"]
+[ext_resource type="Texture2D" uid="uid://bplio5grsnnje" path="res://brotherburp.png" id="9_xfhdn"]
 
 [sub_resource type="Animation" id="Animation_lkaac"]
 length = 0.001
@@ -156,7 +157,7 @@ _data = {
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5qyab"]
 animations = [{
-"frames": [ExtResource("3_o7u5l"), ExtResource("4_vgkv3"), ExtResource("4_m53ru"), ExtResource("5_w03qg"), ExtResource("6_y8bl8"), ExtResource("7_nyaus")],
+"frames": [ExtResource("3_o7u5l"), ExtResource("4_vgkv3"), ExtResource("4_m53ru"), ExtResource("5_w03qg"), ExtResource("6_y8bl8"), ExtResource("7_nyaus"), ExtResource("9_xfhdn")],
 "loop": false,
 "name": &"default",
 "speed": 5.0
@@ -209,7 +210,6 @@ frames = SubResource("SpriteFrames_5qyab")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(0, 250)
-layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -222,14 +222,18 @@ grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_nlrgx")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
+offset_right = 834.0
+offset_bottom = 250.0
 theme_override_constants/margin_left = 80
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 80
 theme_override_constants/margin_bottom = 20
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 80.0
+offset_top = 35.0
+offset_right = 754.0
+offset_bottom = 215.0
 theme_override_font_sizes/font_size = 30
 text = "You are a writhing mass of eyes and flesh, a cosmological horror so far beyond the realm of human comprehension that they might think you're a planet."
 horizontal_alignment = 1

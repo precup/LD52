@@ -30,6 +30,9 @@ func _process(delta):
             followers += GameData.data["Regions"][region]["Categories"][category][0]
             bro_followers += GameData.data["Regions"][region]["Categories"][category][1]
     
+    if bro_followers >= GameData.data["Upgrades"][-1][1]:
+        get_tree().get_first_node_in_group("space").show_failure()
+    
     FOLLOWERS_LABEL.text = Utils.compress(followers)
     TENT_LABEL.text = Utils.compress(bro_followers)
     SOULS_LABEL.text = Utils.compress(GameData.data["Souls"])
@@ -64,7 +67,7 @@ func _on_button_pressed(button_number):
     elif "Spambots" in GameData.data["Upgrades"][button_number][0]:
         for region in GameData.data["Regions"]:
             for category in GameData.data["Regions"][region]["Categories"]:
-                GameData.data["Regions"][region]["Categories"][category][3] *= 2
+                GameData.data["Regions"][region]["Categories"][category][3] *= 1.2
 
 
 func _on_option_button_item_selected(index):
