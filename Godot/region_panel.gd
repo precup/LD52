@@ -42,7 +42,7 @@ func _on_label_4_pressed():
 var harvest_amounts = [0, 0, 0]
 
 func update_text():
-    var data = GameData.data["Regions"][name]
+    var data = GameData.data["Regions"][name]["Categories"]
     var totals = [0, 0, 0]
     for category in data:
         for i in range(3):
@@ -82,11 +82,11 @@ func update_text():
     harvest_amounts[1] = mid_harvest
     harvest_amounts[2] = mid_harvest * 10
     HARVEST_LOW_BUTTON.text = Utils.compress(harvest_amounts[0])
-    HARVEST_LOW_BUTTON.disabled = totals[0] < harvest_amounts[0]
+    HARVEST_LOW_BUTTON.disabled = totals[0] < harvest_amounts[0] + 1
     HARVEST_MID_BUTTON.text = Utils.compress(harvest_amounts[1])
-    HARVEST_MID_BUTTON.disabled = totals[0] < harvest_amounts[1]
+    HARVEST_MID_BUTTON.disabled = totals[0] < harvest_amounts[1] + 1
     HARVEST_HIGH_BUTTON.text = Utils.compress(harvest_amounts[2])
-    HARVEST_HIGH_BUTTON.disabled = totals[0] < harvest_amounts[2]
+    HARVEST_HIGH_BUTTON.disabled = totals[0] < harvest_amounts[2] + 1
     
     var acolyte_count = 0
     var unused_acolyte_count = 0
@@ -117,12 +117,12 @@ func _on_label_7_pressed():
 func _on_minus_pressed():
     for i in range(len(GameData.data["Acolytes"])):
         if GameData.data["Acolytes"][i] == name:
-            GameData.data["Acolytes"] = ""
+            GameData.data["Acolytes"][i] = ""
             break
 
 
 func _on_plus_pressed():
     for i in range(len(GameData.data["Acolytes"])):
         if GameData.data["Acolytes"][i] == "":
-            GameData.data["Acolytes"] = name
+            GameData.data["Acolytes"][i] = name
             break

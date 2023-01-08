@@ -9,8 +9,6 @@ extends Control
 
 var base_tick_rate: float = 18000.0
 var tick_rate_mod: int = 1
-var curr_time: float = 1673208000
-
 
 func set_tick_rate_mod(new_mod):
     tick_rate_mod = new_mod
@@ -20,21 +18,24 @@ func set_tick_rate_mod(new_mod):
 
 
 func update_time():
-    var time : Dictionary = Time.get_datetime_dict_from_unix_time(int(curr_time));
+    var time : Dictionary = Time.get_datetime_dict_from_unix_time(int(GameData.data["Time"]));
     var display_string : String = "%d/%02d/%02d %02d:%02d" % [time["year"], time["month"], time["day"], time["hour"], 0];
     TIME_LABEL.text = display_string
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-    pass # Replace with function body.
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    curr_time += delta * base_tick_rate * tick_rate_mod
+    advance_state(delta * base_tick_rate * tick_rate_mod)
     update_time()
 
 
-func _on_shop_button():
+func advance_state(ms):
+    GameData.data["Time"] += ms
+
+
+func _on_shop_button(region):
+    pass # Replace with function body.
+
+
+func _on_harvest(region, count):
     pass # Replace with function body.
