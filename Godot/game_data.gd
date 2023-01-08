@@ -26,6 +26,7 @@ var BASE_ENEMY_DEFENSE = 0.005
 var AUTOSAVE_FILENAME = "user://socialmediaety.autosave"
 
 var INITIAL_DATA = {
+    "ShownAcolyte": false,
     "Difficulty": NORMAL_DIFFICULTY,
     "Stress": 0.3,
     "Time": 1673208000,

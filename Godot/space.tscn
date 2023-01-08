@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmmw0fkm2vppi"]
+[gd_scene load_steps=15 format=3 uid="uid://dmmw0fkm2vppi"]
 
 [ext_resource type="Texture2D" uid="uid://cl8i1ypywxqbd" path="res://space.png" id="1_ba783"]
 [ext_resource type="Texture2D" uid="uid://d3genw6pfi88" path="res://you.png" id="2_uwvhj"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://cokgoudkqk4ti" path="res://brother3.png" id="6_y8bl8"]
 [ext_resource type="Texture2D" uid="uid://y60k5kd76f7s" path="res://brother4.png" id="7_nyaus"]
 [ext_resource type="Texture2D" uid="uid://bplio5grsnnje" path="res://brotherburp.png" id="9_xfhdn"]
-[ext_resource type="PackedScene" uid="uid://g6r1yklrhfu8" path="res://leaderboard.tscn" id="10_bp21m"]
 
 [sub_resource type="Animation" id="Animation_lkaac"]
 length = 0.001
@@ -239,6 +238,3 @@ theme_override_font_sizes/font_size = 30
 text = "You are a writhing mass of eyes and flesh, a cosmological horror so far beyond the realm of human comprehension that they might think you're a planet."
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Leaderboard" parent="." instance=ExtResource("10_bp21m")]
-visible = false

@@ -38,3 +38,7 @@ func _on_normal_pressed():
 
 func _on_easy_pressed():
     start_new_game(GameData.EASY_DIFFICULTY)
+
+
+func _on_button_3_pressed():
+    get_tree().get_first_node_in_group("leaderboard").display_leaderboard(-1, false)

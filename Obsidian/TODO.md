@@ -1,14 +1,11 @@
 Balance
-	Acolyte effects
-	Use edicts
-	Shop
-	Difficulty modifiers
-Events
-	Harvest eligibility
+Event effects
+Make multipliers additive
+Make cost of shop scale with followers in country
+Make ad campaigns enable the flat boost
+Boosts lose effectiveness over their duration
 
 Issues:
-	Edicts don't display from saves properly
-	After loading from save the tutorial for acolytes will display again
 	Font is kinda shitty
 	More small soul images would be nice
 	Text should come in letter by letter

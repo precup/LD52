@@ -9,7 +9,7 @@ var delay = 1000
 var articles = [
     ["You harvested a lot of souls today. Bad news, though: one of them was a popular musician, and now you've got a virtual army coming after posts about you.", "Social media posts are less effective"],
     ["Your brother harvested some souls, and now everyone's mad at Eldritch dieties across the board. Can't believe he's messing this up for you, again.", "You both have a harder time recruiting"],
-    ["Headlines across the world lamented the loss of X of your followers yesterday, but they somehow blamed your brother and called them martyrs. Don't they realize the whole point of having followers is to take advantage of them?", "Your brother has a harder time recruiting"],
+    ["Headlines across the world lamented the loss of your harvested followers yesterday, but they somehow blamed your brother and called them martyrs. Don't they realize the whole point of having followers is to take advantage of them?", "Your brother has a harder time recruiting"],
     ["News reports of spontaneous deaths have caused people to become more religious.", "People's religious affiliations are more likely to change"],
     ["Your soul harvesting has convinced some people that this is the rapture.", "You gain additional followers"],
     ["Posts about charity work have blown up for the holidays. Waves of generosity and strange behavior sweep across the planet. Disgusting.", "People are less likely to be converted"],
@@ -46,9 +46,11 @@ var OG_HARVESTS = [0, 1, 2, 3, 4, 24]
 var harvests = OG_HARVESTS.duplicate()
 
 var EVENT_RATE = 0.01
+var show_acolyte_on_close = false
 
 func run_possible_event(year, month, day, harvest_eligible, days_since_event):
     var event_number = -1
+    var event_soc = ""
     if month == 12 and day == 25:
         event_number = 8
     elif month == 12 and day == 7:
@@ -64,22 +66,147 @@ func run_possible_event(year, month, day, harvest_eligible, days_since_event):
         if len(harvests) == 0:
             harvests = OG_HARVESTS.duplicate()
     elif randf() < EVENT_RATE * days_since_event:
-        var i = randi_range(0, len(randoms) - 1)
-        event_number = randoms[i]
-        randoms.remove_at(i)
-        if len(randoms) == 0:
-            randoms = OG_RANDOMS.duplicate()
+        var soc_fols = {"WeTalk": 0, "V Kontent": 0, "Facepage": 0, "Twittly": 0}
+        for region in GameData.data["Regions"]:
+            var reg_data = GameData.data["Regions"][region]
+            for soc in soc_fols:
+                if soc in reg_data["Categories"]:
+                    soc_fols[soc] += reg_data["Categories"][soc][0]
+        var poss_soc = []
+        for soc in soc_fols:
+            if soc_fols[soc] > 1:
+                poss_soc.append(soc)
+        
+        while true:
+            var i = randi_range(0, len(randoms) - 1)
+            event_number = randoms[i]
+            if "Site X" in articles[event_number][0] and len(poss_soc) == 0:
+                continue
+            randoms.remove_at(i)
+            if len(randoms) == 0:
+                randoms = OG_RANDOMS.duplicate()
+            break
     
     if event_number >= 0:
-        display(articles[event_number][0], articles[event_number][1])
+        display(event_number, event_soc)
         return true
     return false
     
 
-func display(flavor, effect):
+func display(event_number, event_soc):
     get_tree().paused = true
     visible = true
     display_time = Time.get_ticks_msec()
+    
+    var flavor = articles[event_number][0]
+    var effect = articles[event_number][1]
+    
+    if event_soc == "" and "Site X" in flavor:
+        print("This shouldn't happen")
+    
+    match(event_number):
+        0:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    if category != "Offline":
+                        reg_data["Boosts"].append([category, 0, 14, 0.5, 0])
+        1:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 14, 0.7, 0])
+                    reg_data["Boosts"].append([category, 1, 14, 0.7, 0])
+        2:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 1, 14, 0.5, 0])
+        3:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                reg_data["Boosts"].append(["Defense", 0, 14, 2.0, 0])
+                reg_data["Boosts"].append(["Defense", 1, 14, 2.0, 0])
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 14, 1.5, 0])
+                    reg_data["Boosts"].append([category, 1, 14, 1.5, 0])
+        5:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                reg_data["Boosts"].append(["Defense", 0, 14, 1.3, 0])
+                reg_data["Boosts"].append(["Defense", 1, 14, 1.3, 0])
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 14, 0.5, 0])
+                    reg_data["Boosts"].append([category, 1, 14, 0.5, 0])
+        7:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 180, 0.7, 0])
+        14:
+            GameData.data["Regions"]["Acolytes"].append("")
+            if not GameData.data["ShownAcolyte"]:
+                show_acolyte_on_close = true
+        16:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 1, 14, 1.5, 0])
+        21:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 14, 0.5, 0])
+        18:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                reg_data["Boosts"].append(["Defense", 0, 14, 2.0, 0])
+        23:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 1, 14, 2.0, 0])
+        24:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    reg_data["Boosts"].append([category, 0, 14, 0.5, 0])
+        22:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    if category != "Offline":
+                        reg_data["Boosts"].append([category, 0, 14, 0.5, 0])
+        10:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                reg_data["Boosts"].append(["Offline", 0, 14, 2.0, 0])
+        9:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                if event_soc in reg_data["Categories"]:
+                    reg_data["Boosts"].append([event_soc, 0, 14, 2.0, 0])
+                    reg_data["Boosts"].append(["Both", 0, 14, 2.0, 0])
+        11:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                if event_soc in reg_data["Categories"]:
+                    reg_data["Boosts"].append([event_soc, 0, 7, 4.0, 0])
+                    reg_data["Boosts"].append(["Both", 0, 7, 4.0, 0])
+                    reg_data["Boosts"].append([event_soc, 0, 28, 0.5, 0])
+                    reg_data["Boosts"].append(["Both", 0, 28, 0.5, 0])
+        12:
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                if event_soc in reg_data["Categories"]:
+                    reg_data["Boosts"].append([event_soc, 0, 7, 4.0, 0])
+                    reg_data["Boosts"].append(["Both", 0, 7, 4.0, 0])
+
+        
+    
+    flavor = flavor.replace("Site X", event_soc)
+    effect = effect.replace("Site X", event_soc)
+    
     FLAVOR_LABEL.text = flavor
     EFFECT_LABEL.text = "[i]" + effect
 
@@ -88,3 +215,8 @@ func _input(event):
     if visible and not get_tree().get_first_node_in_group("main").visible and not get_tree().get_first_node_in_group("space").visible and not get_tree().get_first_node_in_group("tutorial").visible and Input.is_action_just_pressed("continue") and display_time + delay < Time.get_ticks_msec():
         get_tree().paused = false
         visible = false
+        
+        if show_acolyte_on_close:
+            show_acolyte_on_close = false
+            GameData.data["ShownAcolyte"] = true
+            get_tree().get_first_node_in_group("tutorial").display(["You've acquired your first acolyte! Acolytes are rare followers powerful enough to think about you and stay alive. You can send them to a region to help out your followers, and you'll recieve boosts to all influence in that region."])

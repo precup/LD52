@@ -67,6 +67,13 @@ func advance_state(s):
         curr_stress = 0.9
     GameData.data["Stress"] = lerp(curr_stress, GameData.data["Stress"], pow(STRESS_DECAY, day_frac))
     
+    var reg_acos = {}
+    for region in GameData.data["Regions"]:
+        reg_acos[region] = 0
+    for acolyte in GameData.data["Acolytes"]:
+        if acolyte != "":
+            reg_acos[acolyte] += 1
+    
     var reg_odds = {}
     for region in GameData.data["Regions"]:
         var reg_data = GameData.data["Regions"][region]
@@ -82,6 +89,28 @@ func advance_state(s):
         for i in range(len(reg_data["Boosts"])):
             var boost = reg_data["Boosts"][i]
             reg_odds[region][boost[0]][boost[1]] += boost[4]
+    for acolyte in GameData.data["Acolytes"]:
+        if acolyte != "":
+            for category in reg_odds[acolyte]:
+                if category != "Defense":
+                    reg_odds[acolyte][category][0] *= 1.2
+    var def_mult = 1.0
+    if GameData.data["Edicts"][1] == 0:
+        def_mult = 3.0
+    elif GameData.data["Edicts"][1] == 2:
+        def_mult = 0.33
+    for region in reg_odds:
+        reg_odds[region]["Defense"][0] *= def_mult
+
+    var spread_mult = 1.0
+    if GameData.data["Edicts"][0] == 0:
+        spread_mult = 0.8
+    elif GameData.data["Edicts"][0] == 2:
+        spread_mult = 1.5
+    for region in reg_odds:
+        for category in reg_odds[region]:
+            if category != "Defense":
+                reg_odds[region][category][0] *= spread_mult
     
     var soc_totals = {"Offline": [0, 0, 0, 0], "WeTalk": [0, 0, 0, 0], "V Kontent": [0, 0, 0, 0], "Facepage": [0, 0, 0, 0], "Twittly": [0, 0, 0, 0]}
     var reg_totals = {}
@@ -108,7 +137,10 @@ func advance_state(s):
     if GameData.data["Stress"] > 0.5:
         var death_rate = pow(max(0, GameData.data["Stress"] - 0.5), 2.0)
         for region in GameData.data["Regions"]:
-            var harvest_count = floor((reg_totals[region][0] - 1) * death_rate)
+            var harvest_count = (reg_totals[region][0] - 1) * death_rate
+            for i in range(reg_acos[region]):
+                harvest_count *= 0.9
+            harvest_count = floor(harvest_count)
             if harvest_count > 0:
                 _on_harvest(region, harvest_count)
     
@@ -119,6 +151,8 @@ func advance_state(s):
             var cat_data = reg_data["Categories"][category]
             var deconverted_me = cat_data[0] * reg_odds[region]["Defense"][0] * day_frac
             deconverted_me = floor(deconverted_me) if randf() > fmod(deconverted_me, 1.0) else ceil(deconverted_me)
+            for i in range(reg_acos[region]):
+                deconverted_me *= 0.9
             var deconverted_bro = cat_data[1] * reg_odds[region]["Defense"][1] * day_frac / GameData.data["Difficulty"]
             deconverted_bro = floor(deconverted_bro) if randf() > fmod(deconverted_bro, 1.0) else ceil(deconverted_bro)
             cat_data[0] = max(1 if cat_data[0] > 0 else 0, cat_data[0] - deconverted_me)
@@ -179,12 +213,12 @@ func advance_state(s):
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
             var to_convert_me = totals[0] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][0] * GameData.GLOBAL_CONVERT_RATE * day_frac)
-            if cat_data[0] > 0:
+            if cat_data[0] > 0 or reg_acos[region] > 0:
                 to_convert_me += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_me = floor(to_convert_me) if randf() > fmod(to_convert_me, 1.0) else ceil(to_convert_me)
             
             var to_convert_bro = totals[1] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][1] * GameData.GLOBAL_ENEMY_CONVERT_RATE * day_frac) * GameData.data["Difficulty"]
-            if cat_data[1] > 0:
+            if cat_data[1] > 0 or reg_acos[region] > 0:
                 to_convert_bro += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_bro = floor(to_convert_bro) if randf() > fmod(to_convert_bro, 1.0) else ceil(to_convert_bro)
             

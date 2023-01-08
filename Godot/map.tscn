@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://blg66wu2kg1xu"]
+[gd_scene load_steps=21 format=3 uid="uid://blg66wu2kg1xu"]
 
 [ext_resource type="Script" path="res://map.gd" id="1_1cfr0"]
 [ext_resource type="Texture2D" uid="uid://c1xcad80650fn" path="res://map.png" id="1_cjy6w"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://ci2njbpitgtcu" path="res://bulb.png" id="11_6x2gf"]
 [ext_resource type="Script" path="res://space.gd" id="11_wkymw"]
 [ext_resource type="PackedScene" uid="uid://8ixxo2dxg46u" path="res://main.tscn" id="17_y7at1"]
+[ext_resource type="PackedScene" uid="uid://g6r1yklrhfu8" path="res://leaderboard.tscn" id="18_sxfqg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ube54"]
 bg_color = Color(1, 1, 1, 1)
@@ -576,6 +577,10 @@ script = ExtResource("11_wkymw")
 
 [node name="main" parent="." groups=["main"] instance=ExtResource("17_y7at1")]
 process_mode = 3
+visible = false
+layout_mode = 1
+
+[node name="MarginContainer" parent="." instance=ExtResource("18_sxfqg")]
 visible = false
 layout_mode = 1
 

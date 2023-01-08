@@ -9,12 +9,7 @@ extends PanelContainer
 @onready var SHOP_CONTAINER = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer
 @onready var STRESS_BAR: TextureProgressBar = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer/OptionButton
 
-var shown_tut = false
-
 func _ready():
-    SOCIABILITY_OPTION.selected = GameData.data["Edicts"][0]
-    WORSHIP_OPTION.selected = GameData.data["Edicts"][1]
-    
     if len(GameData.data["Upgrades"]) != SHOP_CONTAINER.get_child_count():
         print("Incorrect number of upgrades")
     for i in range(len(GameData.data["Upgrades"])):
@@ -34,6 +29,8 @@ func _process(delta):
     if bro_followers >= GameData.data["Upgrades"][-1][1]:
         get_tree().get_first_node_in_group("space").show_failure()
     
+    SOCIABILITY_OPTION.selected = GameData.data["Edicts"][0]
+    WORSHIP_OPTION.selected = GameData.data["Edicts"][1]
     FOLLOWERS_LABEL.text = Utils.compress(followers)
     TENT_LABEL.text = Utils.compress(bro_followers)
     SOULS_LABEL.text = Utils.compress(GameData.data["Souls"])
@@ -62,8 +59,8 @@ func _on_button_pressed(button_number):
     GameData.data["Upgrades"][button_number][2] = true
     if "Acolyte" in GameData.data["Upgrades"][button_number][0]:
         GameData.data["Acolytes"].append("")
-        if len(GameData.data["Acolytes"]) == 1 and not shown_tut:
-            shown_tut = true
+        if len(GameData.data["Acolytes"]) == 1 and not GameData.data["ShownAcolyte"]:
+            GameData.data["ShownAcolyte"] = true
             get_tree().get_first_node_in_group("tutorial").display(["You've acquired your first acolyte! Acolytes are rare followers powerful enough to think about you and stay alive. You can send them to a region to help out your followers, and you'll recieve boosts to all influence in that region."])
     elif "Planet" in GameData.data["Upgrades"][button_number][0]:
         get_tree().get_first_node_in_group("space").show_ending()

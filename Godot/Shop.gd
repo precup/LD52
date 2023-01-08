@@ -41,23 +41,39 @@ func _on_margin_container_pressed():
 
 func _on_button1_pressed():
     GameData.data["Souls"] -= get_price(reg, 1)
+    GameData.data["Regions"][reg]["Boosts"].append(["Facepage" if reg != "Asia" else "V Kontent", 0, 14, 2.0, 1])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 0, 14, 2.0, 1])
 
 
 func _on_button2_pressed():
     GameData.data["Souls"] -= get_price(reg, -1)
+    GameData.data["Regions"][reg]["Boosts"].append(["Facepage" if reg != "Asia" else "V Kontent", 1, 14, 0.5, 0])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 1, 14, 0.5, 0])
 
 
 func _on_button3_pressed():
     GameData.data["Souls"] -= get_price(reg, 2)
+    GameData.data["Regions"][reg]["Boosts"].append(["Twittly" if reg != "Asia" else "WeTalk", 0, 14, 2.0, 1])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 0, 14, 2.0, 1])
 
 
 func _on_button4_pressed():
     GameData.data["Souls"] -= get_price(reg, -2)
+    GameData.data["Regions"][reg]["Boosts"].append(["Twittly" if reg != "Asia" else "WeTalk", 1, 14, 0.5, 0])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 1, 14, 0.5, 0])
 
 
 func _on_button5_pressed():
     GameData.data["Souls"] -= get_price(reg, 3)
+    GameData.data["Regions"][reg]["Boosts"].append(["Offline", 0, 14, 2.0, 1])
+    GameData.data["Regions"][reg]["Boosts"].append(["Twittly" if reg != "Asia" else "WeTalk", 0, 14, 1.5, 1])
+    GameData.data["Regions"][reg]["Boosts"].append(["Facepage" if reg != "Asia" else "V Kontent", 0, 14, 1.5, 1])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 0, 14, 1.5, 1])
 
 
 func _on_button6_pressed():
     GameData.data["Souls"] -= get_price(reg, -3)
+    GameData.data["Regions"][reg]["Boosts"].append(["Offline", 1, 14, 0.5, 0])
+    GameData.data["Regions"][reg]["Boosts"].append(["Twittly" if reg != "Asia" else "WeTalk", 1, 14, 0.67, 0])
+    GameData.data["Regions"][reg]["Boosts"].append(["Facepage" if reg != "Asia" else "V Kontent", 1, 14, 0.67, 0])
+    GameData.data["Regions"][reg]["Boosts"].append(["Both", 1, 14, 0.67, 0])
