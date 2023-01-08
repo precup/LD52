@@ -16,6 +16,9 @@ var tick_rate_mod: int = 1
 var STRESS_DECAY = 0.93
 var days_since_event = 0
 
+func _ready():
+    set_tick_rate_mod(4)
+
 func set_tick_rate_mod(new_mod):
     tick_rate_mod = new_mod
     TIME1_HIGHLIGHT.visible = new_mod == 1
@@ -83,17 +86,30 @@ func advance_state(s):
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
             reg_odds[region][category] = [cat_data[3], cat_data[4]]
+        var mults = {}
         for i in range(len(reg_data["Boosts"])):
             var boost = reg_data["Boosts"][i]
-            reg_odds[region][boost[0]][boost[1]] *= boost[3]
+            if boost[3] > 1.0:
+                if boost[0] not in mults:
+                    mults[boost[0]] = {}
+                if boost[1] not in mults[boost[0]]:
+                    mults[boost[0]][boost[1]] = 1.0
+                mults[boost[0]][boost[1]] += boost[3] - 1.0
+        for b0 in mults:
+            for b1 in mults[b0]:
+                reg_odds[region][b0][b1] *= mults[b0][b1]
+            
+        for i in range(len(reg_data["Boosts"])):
+            var boost = reg_data["Boosts"][i]
+            if boost[3] <= 1.0:
+                reg_odds[region][boost[0]][boost[1]] *= boost[3]
         for i in range(len(reg_data["Boosts"])):
             var boost = reg_data["Boosts"][i]
             reg_odds[region][boost[0]][boost[1]] += boost[4]
-    for acolyte in GameData.data["Acolytes"]:
-        if acolyte != "":
-            for category in reg_odds[acolyte]:
-                if category != "Defense":
-                    reg_odds[acolyte][category][0] *= 1.2
+    for region in GameData.data["Regions"]:
+        for category in reg_odds[region]:
+            if category != "Defense" and reg_acos[region] > 0:
+                reg_odds[region][category][0] *= 1.2 + 0.3 * reg_acos[region]
     var def_mult = 1.0
     if GameData.data["Edicts"][1] == 0:
         def_mult = 3.0
@@ -111,6 +127,7 @@ func advance_state(s):
         for category in reg_odds[region]:
             if category != "Defense":
                 reg_odds[region][category][0] *= spread_mult
+    
     
     var soc_totals = {"Offline": [0, 0, 0, 0], "WeTalk": [0, 0, 0, 0], "V Kontent": [0, 0, 0, 0], "Facepage": [0, 0, 0, 0], "Twittly": [0, 0, 0, 0]}
     var reg_totals = {}
@@ -133,6 +150,12 @@ func advance_state(s):
                 for i in range(3):
                     soc_totals[category][i] += reg_data["Categories"]["Both"][i]
                     soc_totals[category][3] += reg_data["Categories"]["Both"][i]
+                    
+    var scale_punishment = pow(GameData.SCALE_DECAY_FACTOR, log(totals[0]) / log(10))
+    for region in reg_odds:
+        for category in reg_odds[region]:
+            if category != "Defense":
+                reg_odds[region][category][0] *= scale_punishment
     
     if GameData.data["Stress"] > 0.5:
         var death_rate = pow(max(0, GameData.data["Stress"] - 0.5), 2.0)
@@ -213,12 +236,12 @@ func advance_state(s):
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
             var to_convert_me = totals[0] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][0] * GameData.GLOBAL_CONVERT_RATE * day_frac)
-            if cat_data[0] > 0 or reg_acos[region] > 0:
+            if cat_data[0] > 0 or reg_acos[region] > 0 or region in GameData.data["Ads"]:
                 to_convert_me += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_me = floor(to_convert_me) if randf() > fmod(to_convert_me, 1.0) else ceil(to_convert_me)
             
             var to_convert_bro = totals[1] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][1] * GameData.GLOBAL_ENEMY_CONVERT_RATE * day_frac) * GameData.data["Difficulty"]
-            if cat_data[1] > 0 or reg_acos[region] > 0:
+            if cat_data[1] > 0:
                 to_convert_bro += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_bro = floor(to_convert_bro) if randf() > fmod(to_convert_bro, 1.0) else ceil(to_convert_bro)
             
@@ -235,7 +258,14 @@ func advance_state(s):
                 if boosts[i][2] <= 0:
                     boosts.remove_at(i)
                 else:
+                    boosts[i][3] = lerp(1.0, boosts[i][3], boosts[i][2] / (boosts[i][2] + 1))
                     i += 1
+        var regions = GameData.data["Ads"].keys()
+        for region in regions:
+            GameData.data["Ads"][region] -= 1
+            if GameData.data["Ads"][region] <= 0:
+                GameData.data["Ads"].erase(region)
+            
         
         var ran_event = get_tree().get_first_node_in_group("news").run_possible_event(last_date["year"], last_date["month"], last_date["day"], false, days_since_event)
         if ran_event:
@@ -248,7 +278,7 @@ func _on_shop_button(region):
     get_tree().get_first_node_in_group("shop").display_region(region)
 
 
-func _on_harvest(region, count):
+func _on_harvest(region, count, collect=true, transfer=false):
     if count == 0:
         return
     var data = GameData.data["Regions"][region]
@@ -259,20 +289,27 @@ func _on_harvest(region, count):
     for category in data["Categories"]:
         var to_harvest = floor(data["Categories"][category][0] / region_total * count)
         data["Categories"][category][0] -= to_harvest
+        if transfer:
+            data["Categories"][category][1] += to_harvest
         harvested += to_harvest
     var categories = data["Categories"].keys()
     while harvested < count:
         var ran = randi_range(0, len(categories) - 1)
         if data["Categories"][categories[ran]][0] > 0:
             data["Categories"][categories[ran]][0] -= 1
+            if transfer:
+                data["Categories"][categories[ran]][1] += 1
             harvested += 1
-    GameData.data["Souls"] += count
-    data["HarvestedToday"] += count
-    spawn_ghosts(region, min(count, max(1, log(count) / log(1.5))))
+    if collect:
+        GameData.data["Souls"] += count
+        data["HarvestedToday"] += count
+        spawn_ghosts(region, min(count, max(1, log(count) / log(1.5))))
 
 
+var MAX_GHOSTS = 2500
 var SPAWN_DIST = 110.0
 func spawn_ghosts(region, count):
+    count = min(count, MAX_GHOSTS - $Ghosts.get_child_count())
     var spawn_point = get_node(String(region)).get_child(1).global_position
     for i in range(count):
         var angle = randf_range(0, TAU)

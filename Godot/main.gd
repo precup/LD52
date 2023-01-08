@@ -17,6 +17,7 @@ func _on_button_pressed():
 
 func _on_button_2_pressed():
     GameData.load_autosave()
+    get_tree().get_first_node_in_group("space").state = 8
     visible = false
     get_tree().paused = false
 
@@ -37,7 +38,7 @@ func _on_normal_pressed():
 
 
 func _on_easy_pressed():
-    start_new_game(GameData.EASY_DIFFICULTY)
+    start_new_game(GameData.UNLOSEABLE_DIFFICULTY)
 
 
 func _on_button_3_pressed():

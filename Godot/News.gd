@@ -82,6 +82,8 @@ func run_possible_event(year, month, day, harvest_eligible, days_since_event):
             event_number = randoms[i]
             if "Site X" in articles[event_number][0] and len(poss_soc) == 0:
                 continue
+            if len(poss_soc) > 0:
+                event_soc = poss_soc[randi_range(0, len(poss_soc) - 1)]
             randoms.remove_at(i)
             if len(randoms) == 0:
                 randoms = OG_RANDOMS.duplicate()
@@ -144,7 +146,7 @@ func display(event_number, event_soc):
                 for category in reg_data["Categories"]:
                     reg_data["Boosts"].append([category, 0, 180, 0.7, 0])
         14:
-            GameData.data["Regions"]["Acolytes"].append("")
+            GameData.data["Acolytes"].append("")
             if not GameData.data["ShownAcolyte"]:
                 show_acolyte_on_close = true
         16:
@@ -201,7 +203,95 @@ func display(event_number, event_soc):
                 if event_soc in reg_data["Categories"]:
                     reg_data["Boosts"].append([event_soc, 0, 7, 4.0, 0])
                     reg_data["Boosts"].append(["Both", 0, 7, 4.0, 0])
-
+        13:
+            var regions_counts = {}
+            var poss_regions = []
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    if reg_data["Categories"][category][0] > 0:
+                        if region not in regions_counts:
+                            poss_regions.append(region)
+                            regions_counts[region] = 0
+                        regions_counts[region] += reg_data["Categories"][category][0]
+            var i = randi_range(0, len(poss_regions) - 1)
+            var to_harvest = regions_counts[poss_regions[i]] / 10
+            get_tree().get_first_node_in_group("map")._on_harvest(poss_regions[i], to_harvest)
+        15:
+            var regions_counts = {}
+            var poss_regions = []
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    if reg_data["Categories"][category][0] > 0:
+                        if region not in regions_counts:
+                            poss_regions.append(region)
+                            regions_counts[region] = 0
+                        regions_counts[region] += reg_data["Categories"][category][0]
+            var i = randi_range(0, len(poss_regions) - 1)
+            var to_harvest = regions_counts[poss_regions[i]] / 10
+            get_tree().get_first_node_in_group("map")._on_harvest(poss_regions[i], to_harvest)
+        19:
+            var regions_counts = {}
+            var poss_regions = []
+            for region in GameData.data["Regions"]:
+                var reg_data = GameData.data["Regions"][region]
+                for category in reg_data["Categories"]:
+                    if reg_data["Categories"][category][0] > 0:
+                        if region not in regions_counts:
+                            poss_regions.append(region)
+                            regions_counts[region] = 0
+                        regions_counts[region] += reg_data["Categories"][category][0]
+            var i = randi_range(0, len(poss_regions) - 1)
+            var to_harvest = regions_counts[poss_regions[i]] / 10
+            get_tree().get_first_node_in_group("map")._on_harvest(poss_regions[i], to_harvest, false, true)
+        4:
+            var regions_counts = {}
+            var regions_2counts = {}
+            var max_count = 0
+            var poss_regions = []
+            for region in GameData.data["Regions"]:
+                poss_regions.append(region)
+                var reg_data = GameData.data["Regions"][region]
+                regions_counts[region] = 0
+                regions_2counts[region] = 0
+                for category in reg_data["Categories"]:
+                    if reg_data["Categories"][category][0] > 0:
+                        regions_counts[region] += reg_data["Categories"][category][0]
+                        regions_2counts[region] += reg_data["Categories"][category][2]
+                        max_count = max(max_count, regions_counts[region])
+            var i = randi_range(0, len(poss_regions) - 1)
+            var add_fraction = max_count / 10 / regions_2counts[poss_regions[i]]
+            var reg_data = GameData.data["Regions"][poss_regions[i]]
+            for category in reg_data["Categories"]:
+                var cat_data = reg_data["Categories"][category]
+                var add_here = floor(add_fraction * cat_data[2])
+                cat_data[2] -= add_here
+                cat_data[0] += add_here
+        20:
+            var regions_counts = {}
+            var regions_2counts = {}
+            var max_count = 0
+            var poss_regions = []
+            for region in GameData.data["Regions"]:
+                poss_regions.append(region)
+                var reg_data = GameData.data["Regions"][region]
+                regions_counts[region] = 0
+                regions_2counts[region] = 0
+                for category in reg_data["Categories"]:
+                    if reg_data["Categories"][category][0] > 0:
+                        regions_counts[region] += reg_data["Categories"][category][0]
+                        regions_2counts[region] += reg_data["Categories"][category][2]
+                        max_count = max(max_count, regions_counts[region])
+            var i = randi_range(0, len(poss_regions) - 1)
+            var add_fraction = max_count / 10 / regions_2counts[poss_regions[i]]
+            var reg_data = GameData.data["Regions"][poss_regions[i]]
+            for category in reg_data["Categories"]:
+                var cat_data = reg_data["Categories"][category]
+                var add_here = floor(add_fraction * cat_data[2])
+                cat_data[2] -= add_here
+                cat_data[0] += add_here
+            
         
     
     flavor = flavor.replace("Site X", event_soc)

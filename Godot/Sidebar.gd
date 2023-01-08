@@ -71,6 +71,8 @@ func _on_button_pressed(button_number):
         for region in GameData.data["Regions"]:
             for category in GameData.data["Regions"][region]["Categories"]:
                 GameData.data["Regions"][region]["Categories"][category][3] *= 1.2
+                if GameData.data["Upgrades"][button_number][0]:
+                    GameData.data["Regions"][region]["Categories"][category][3] *= 1.2
 
 
 func _on_option_button_item_selected(index):

@@ -2,9 +2,9 @@ extends Node
 
 var is_debug = false
 
-var INITIAL_CONVERSION_RATE_1 = 0.01
-var INITIAL_CONVERSION_RATE_2 = 0.01
-var INITIAL_OFFLINE_CONVERSION_RATE = 0.01
+var INITIAL_CONVERSION_RATE_1 = 0.017
+var INITIAL_CONVERSION_RATE_2 = 0.017
+var INITIAL_OFFLINE_CONVERSION_RATE = 0.014
 
 var INITIAL_ENEMY_CONVERSION_RATE_1 = 0.035
 var INITIAL_ENEMY_CONVERSION_RATE_2 = 0.035
@@ -14,24 +14,26 @@ var GLOBAL_CONVERT_RATE = 0.01
 var GLOBAL_ENEMY_CONVERT_RATE = 0.01
 
 var START_FLAT_BOOST = 2.0
+var SCALE_DECAY_FACTOR = 0.92
 
 var UNLOSEABLE_DIFFICULTY = 0.5
 var EASY_DIFFICULTY = 0.8
 var NORMAL_DIFFICULTY = 1.0
 var HARD_DIFFICULTY = 1.1
 
-var BASE_DEFENSE = 0.005
-var BASE_ENEMY_DEFENSE = 0.005
+var BASE_DEFENSE = 0.007
+var BASE_ENEMY_DEFENSE = 0.007
 
 var AUTOSAVE_FILENAME = "user://socialmediaety.autosave"
 
 var INITIAL_DATA = {
+    "Ads": {},
     "ShownAcolyte": false,
     "Difficulty": NORMAL_DIFFICULTY,
     "Stress": 0.3,
     "Time": 1673208000,
     "Edicts": [1, 1],
-    "Souls": 10000000000,
+    "Souls": 0,
     "Acolytes": [],
     "Upgrades": [
         # Name, cost, bought, displayed

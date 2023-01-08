@@ -8,7 +8,7 @@ extends Control
 var tut_text = [
     "You've got one follower, ready to spread the bad word. The more faithful you have, especially on social media, the faster your influence will spread. 
 
-You'll need 3 billion souls to teleport the planet, and you'll need to do it before your brother does. ",
+You'll need 3 billion souls to teleport the planet, and you'll need to do it before your brother does. He always starts strong, but you're the smarter one.",
 "You can adjust your edicts to your faithful, but if you demand too much from your followers, they may die from thinking about you too much. 
 
 You can harvest the souls of your followers at any time, although that will also cause them to die, which makes it difficult for them to post on social media. "
@@ -72,6 +72,8 @@ func advance_state():
             visible = false
             get_tree().get_first_node_in_group("tutorial").display(tut_text)
         9:
+            PLAYER.current_animation = "slide"
+            PLAYER.advance(PLAYER.current_animation_length)
             LABEL.text = "Ah, finally. Enough souls to teleport the whole of the planet into your extradimensional maw."
         10:
             LABEL.text = "You look at your brother."
@@ -96,6 +98,8 @@ func advance_state():
             get_tree().get_first_node_in_group("leaderboard").display_leaderboard(GameData.data["Time"] - GameData.INITIAL_DATA["Time"], GameData.data["Difficulty"] == GameData.NORMAL_DIFFICULTY)
         19:
             BROTHER.frame = 0
+            PLAYER.current_animation = "slide"
+            PLAYER.advance(PLAYER.current_animation_length)
             LABEL.text = "Your brother ungulates in a very smug manner."
         20:
             BROTHER.frame = 6

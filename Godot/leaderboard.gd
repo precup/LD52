@@ -40,7 +40,7 @@ func display_records(records):
         var label = LEADERBOARD.get_child(i)
         label.visible = i < len(records)
         if i < len(records):
-            label.text = "%d. %s: %.1f" % [i + 1, records[i][0], records[i][1] / 24.0 / 3600.0]
+            label.text = "%d. %s: %.1f days" % [i + 1, records[i][0], records[i][1] / 24.0 / 3600.0]
     
     if len(records) == 0:
         var first_label = LEADERBOARD.get_child(0)

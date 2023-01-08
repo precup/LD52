@@ -53,6 +53,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 21
 text = "You beat the game in 351.2 days."
 horizontal_alignment = 1
 
@@ -102,6 +103,7 @@ text = "  Submit  "
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 14
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
@@ -118,66 +120,7 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label7" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label8" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label9" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1. Arch - 3133.7 days"
-horizontal_alignment = 1
-
-[node name="Label10" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 21
 text = "1. Arch - 3133.7 days"
 horizontal_alignment = 1
 
@@ -192,6 +135,7 @@ theme_override_constants/margin_bottom = 13
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_font_sizes/font_size = 21
 theme_override_styles/normal = ExtResource("1_iv5f5")
 theme_override_styles/hover = ExtResource("2_8xxpc")
 text = "  Return to Main Menu  "

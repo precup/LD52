@@ -6,7 +6,7 @@ import time
 
 filename = "records.pickle"
 filename2 = "log.pickle"
-records = [(100 * 24 * 3600, "Sample"), (200 * 24 * 3600, "Test")]
+records = [(505.6 * 24 * 3600, "Mike")]
 log = []
 
 def save_records():
@@ -42,4 +42,4 @@ def index(name, score):
 
 # save_records()
 load_records()
-run(host='localhost', port=8080)
+run(host='0.0.0.0', port=80)

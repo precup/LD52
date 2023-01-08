@@ -120,18 +120,25 @@ theme_override_constants/separation = 23
 alignment = 1
 
 [node name="Unloseable" type="Button" parent="VBoxContainer2"]
+visible = false
 theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_r34ot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vkr1r")
 text = "Unloseable"
 
 [node name="Easy" type="Button" parent="VBoxContainer2"]
+offset_top = 43.0
+offset_right = 380.0
+offset_bottom = 107.0
 theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_r34ot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vkr1r")
 text = " Easy"
 
 [node name="Normal" type="Button" parent="VBoxContainer2"]
+offset_top = 130.0
+offset_right = 380.0
+offset_bottom = 194.0
 theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_r34ot")
 theme_override_styles/hover = SubResource("StyleBoxFlat_vkr1r")
