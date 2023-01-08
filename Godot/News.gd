@@ -15,6 +15,6 @@ func display(flavor, effect):
 
 
 func _input(event):
-    if visible and not get_tree().get_first_node_in_group("space").visible and not get_tree().get_first_node_in_group("tutorial").visible and Input.is_action_just_pressed("continue") and display_time + delay < Time.get_ticks_msec():
+    if visible and not get_tree().get_first_node_in_group("main").visible and not get_tree().get_first_node_in_group("space").visible and not get_tree().get_first_node_in_group("tutorial").visible and Input.is_action_just_pressed("continue") and display_time + delay < Time.get_ticks_msec():
         SceneTree.paused = false
         visible = false

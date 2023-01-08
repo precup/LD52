@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqcyp4lt8mslq"]
+
+[ext_resource type="Script" path="res://Ghost.gd" id="1_5sixo"]
+[ext_resource type="Texture2D" uid="uid://buypxtklfewrq" path="res://soul2.png" id="1_iqsl3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x4opn"]
+animations = [{
+"frames": [ExtResource("1_iqsl3")],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Ghost" type="Node2D"]
+script = ExtResource("1_5sixo")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+frames = SubResource("SpriteFrames_x4opn")

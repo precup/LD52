@@ -1,5 +1,7 @@
 extends Control
 
+@onready var GHOST_SCENE = load("res://Ghost.tscn")
+
 @onready var SOCIABILITY_OPTION = $Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer3/HSplitContainer/OptionButton
 @onready var WORSHIP_OPTION = $Sidebar/MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer4/HSplitContainer/OptionButton
 @onready var TIME_LABEL = $TimeBar/HBoxContainer/MarginContainer/Label
@@ -13,6 +15,7 @@ var base_tick_rate: float = 18000.0
 var tick_rate_mod: int = 1
 var EVENT_RATE_ADD = 0.01
 var event_rate = EVENT_RATE_ADD
+var STRESS_DECAY = 0.93
 
 func set_tick_rate_mod(new_mod):
     tick_rate_mod = new_mod
@@ -30,12 +33,20 @@ func update_time():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 var agg = 0.0
 var proc = 3600
+
+var autosave_timer = 0.0
+var autosave_freq = 20.0
 func _process(delta):
     agg += delta * base_tick_rate * tick_rate_mod
     if agg > proc:
         advance_state(agg)
         agg = 0.0
     update_time()
+    
+    autosave_timer += delta
+    if autosave_timer > autosave_freq:
+        autosave_timer = 0
+        GameData.save()
 
 
 func advance_state(s):    
@@ -43,6 +54,35 @@ func advance_state(s):
     GameData.data["Time"] += s
     var curr_date : Dictionary = Time.get_date_dict_from_unix_time(int(GameData.data["Time"]));
     var day_frac: float = s / 24.0 / 3600.0
+    
+    var curr_stress = GameData.data["Edicts"][0] + GameData.data["Edicts"][1]
+    if curr_stress == 0:
+        curr_stress = 0.0
+    elif curr_stress == 1:
+        curr_stress = 0.15
+    elif curr_stress == 2:
+        curr_stress = 0.3
+    elif curr_stress == 3:
+        curr_stress = 0.6
+    elif curr_stress == 4:
+        curr_stress = 0.9
+    GameData.data["Stress"] = lerp(curr_stress, GameData.data["Stress"], pow(STRESS_DECAY, day_frac))
+    
+    var reg_odds = {}
+    for region in GameData.data["Regions"]:
+        var reg_data = GameData.data["Regions"][region]
+        reg_odds[region] = {
+            "Defense": [reg_data["FollowerDefense"], reg_data["TentDefense"]]
+        }
+        for category in reg_data["Categories"]:
+            var cat_data = reg_data["Categories"][category]
+            reg_odds[region][category] = [cat_data[3], cat_data[4]]
+        for i in range(len(reg_data["Boosts"])):
+            var boost = reg_data["Boosts"][i]
+            reg_odds[region][boost[0]][boost[1]] *= boost[3]
+        for i in range(len(reg_data["Boosts"])):
+            var boost = reg_data["Boosts"][i]
+            reg_odds[region][boost[0]][boost[1]] += boost[4]
     
     var soc_totals = {"Offline": [0, 0, 0, 0], "WeTalk": [0, 0, 0, 0], "V Kontent": [0, 0, 0, 0], "Facepage": [0, 0, 0, 0], "Twittly": [0, 0, 0, 0]}
     var reg_totals = {}
@@ -66,14 +106,21 @@ func advance_state(s):
                     soc_totals[category][i] += reg_data["Categories"]["Both"][i]
                     soc_totals[category][3] += reg_data["Categories"]["Both"][i]
     
+    if GameData.data["Stress"] > 0.5:
+        var death_rate = pow(max(0, GameData.data["Stress"] - 0.5), 2.0)
+        for region in GameData.data["Regions"]:
+            var harvest_count = floor((reg_totals[region][0] - 1) * death_rate)
+            if harvest_count > 0:
+                _on_harvest(region, harvest_count)
+    
     # Apply deconversion
     for region in GameData.data["Regions"]:
         var reg_data = GameData.data["Regions"][region]
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
-            var deconverted_me = cat_data[0] * (1.0 - reg_data["FollowerDefense"]) * day_frac
+            var deconverted_me = cat_data[0] * reg_odds[region]["Defense"][0] * day_frac
             deconverted_me = floor(deconverted_me) if randf() > fmod(deconverted_me, 1.0) else ceil(deconverted_me)
-            var deconverted_bro = cat_data[1] * (1.0 - reg_data["TentDefense"]) * day_frac / GameData.data["Difficulty"]
+            var deconverted_bro = cat_data[1] * reg_odds[region]["Defense"][1] * day_frac / GameData.data["Difficulty"]
             deconverted_bro = floor(deconverted_bro) if randf() > fmod(deconverted_bro, 1.0) else ceil(deconverted_bro)
             cat_data[0] = max(1 if cat_data[0] > 0 else 0, cat_data[0] - deconverted_me)
             cat_data[1] = max(1 if cat_data[1] > 0 else 0, cat_data[1] - deconverted_bro)
@@ -85,10 +132,10 @@ func advance_state(s):
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
             if category == "Offline":
-                var to_convert_me = reg_totals[region][0] / float(reg_totals[region][3]) * cat_data[2] * (cat_data[3] * day_frac)
+                var to_convert_me = reg_totals[region][0] / float(reg_totals[region][3]) * cat_data[2] * (reg_odds[region][category][0] * day_frac)
                 to_convert_me = floor(to_convert_me) if randf() > fmod(to_convert_me, 1.0) else ceil(to_convert_me)
                 
-                var to_convert_bro = reg_totals[region][1] / float(reg_totals[region][3]) * cat_data[2] * (cat_data[4] * day_frac) * GameData.data["Difficulty"]
+                var to_convert_bro = reg_totals[region][1] / float(reg_totals[region][3]) * cat_data[2] * (reg_odds[region][category][1] * day_frac) * GameData.data["Difficulty"]
                 to_convert_bro = floor(to_convert_bro) if randf() > fmod(to_convert_bro, 1.0) else ceil(to_convert_bro)
                 
                 cat_data[0] += to_convert_me
@@ -103,24 +150,24 @@ func advance_state(s):
                     cat_total += cat_data[i]
                     cat_total += both_data[i]
                 
-                var to_convert_me = (both_data[0] + cat_data[0]) * cat_data[2] / float(cat_total) * (cat_data[3] * day_frac)
-                to_convert_me += soc_totals[category][0] / float(soc_totals[category][3]) * cat_data[2] * (cat_data[3] * cat_data[3] * day_frac)
+                var to_convert_me = (both_data[0] + cat_data[0]) * cat_data[2] / float(cat_total) * (reg_odds[region][category][0] * day_frac)
+                to_convert_me += soc_totals[category][0] / float(soc_totals[category][3]) * cat_data[2] * pow(reg_odds[region][category][0], 2) * day_frac
                 to_convert_me = floor(to_convert_me) if randf() > fmod(to_convert_me, 1.0) else ceil(to_convert_me)
                 
-                var to_convert_bro = (both_data[1] + cat_data[1]) / float(cat_total) * cat_data[2] * (cat_data[4] * day_frac) * GameData.data["Difficulty"]
-                to_convert_bro += soc_totals[category][1] / float(soc_totals[category][3]) * cat_data[2] * (cat_data[4] * cat_data[4] * day_frac) * GameData.data["Difficulty"]
+                var to_convert_bro = (both_data[1] + cat_data[1]) / float(cat_total) * cat_data[2] * (reg_odds[region][category][1] * day_frac) * GameData.data["Difficulty"]
+                to_convert_bro += soc_totals[category][1] / float(soc_totals[category][3]) * cat_data[2] * pow(reg_odds[region][category][1], 2) * day_frac * GameData.data["Difficulty"]
                 to_convert_bro = floor(to_convert_bro) if randf() > fmod(to_convert_bro, 1.0) else ceil(to_convert_bro)
                 
                 cat_data[0] += to_convert_me
                 cat_data[1] += to_convert_bro
                 cat_data[2] = max(0, cat_data[2] - to_convert_bro - to_convert_me)
                 
-                var to_convert_me_both = (both_data[0] + cat_data[0]) / float(cat_total) * both_data[2] * (cat_data[3] * day_frac)
-                to_convert_me_both += soc_totals[category][0] / float(soc_totals[category][3]) * both_data[2] * (cat_data[3] * cat_data[3] * day_frac)
+                var to_convert_me_both = (both_data[0] + cat_data[0]) / float(cat_total) * both_data[2] * (reg_odds[region][category][0] * day_frac)
+                to_convert_me_both += soc_totals[category][0] / float(soc_totals[category][3]) * both_data[2] * pow(reg_odds[region][category][0], 2) * day_frac
                 to_convert_me_both = floor(to_convert_me_both) if randf() > fmod(to_convert_me_both, 1.0) else ceil(to_convert_me_both)
                 
-                var to_convert_bro_both = (both_data[1] + cat_data[1]) / float(cat_total) * both_data[2] * (cat_data[4] * day_frac) * GameData.data["Difficulty"]
-                to_convert_bro_both += soc_totals[category][1] / float(soc_totals[category][3]) * both_data[2] * (cat_data[4] * cat_data[4] * day_frac) * GameData.data["Difficulty"]
+                var to_convert_bro_both = (both_data[1] + cat_data[1]) / float(cat_total) * both_data[2] * (reg_odds[region][category][1] * day_frac) * GameData.data["Difficulty"]
+                to_convert_bro_both += soc_totals[category][1] / float(soc_totals[category][3]) * both_data[2] * pow(reg_odds[region][category][1], 2) * day_frac * GameData.data["Difficulty"]
                 to_convert_bro_both = floor(to_convert_bro_both) if randf() > fmod(to_convert_bro_both, 1.0) else ceil(to_convert_bro_both)
                 
                 both_data[0] += to_convert_me_both
@@ -132,12 +179,12 @@ func advance_state(s):
         var reg_data = GameData.data["Regions"][region]
         for category in reg_data["Categories"]:
             var cat_data = reg_data["Categories"][category]
-            var to_convert_me = totals[0] / float(totals[3]) * cat_data[2] * (reg_data["Categories"][category][3] * GameData.GLOBAL_CONVERT_RATE * day_frac)
+            var to_convert_me = totals[0] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][0] * GameData.GLOBAL_CONVERT_RATE * day_frac)
             if cat_data[0] > 0:
                 to_convert_me += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_me = floor(to_convert_me) if randf() > fmod(to_convert_me, 1.0) else ceil(to_convert_me)
             
-            var to_convert_bro = totals[1] / float(totals[3]) * cat_data[2] * (reg_data["Categories"][category][4] * GameData.GLOBAL_ENEMY_CONVERT_RATE * day_frac) * GameData.data["Difficulty"]
+            var to_convert_bro = totals[1] / float(totals[3]) * cat_data[2] * (reg_odds[region][category][1] * GameData.GLOBAL_ENEMY_CONVERT_RATE * day_frac) * GameData.data["Difficulty"]
             if cat_data[1] > 0:
                 to_convert_bro += randf() * day_frac * GameData.START_FLAT_BOOST
             to_convert_bro = floor(to_convert_bro) if randf() > fmod(to_convert_bro, 1.0) else ceil(to_convert_bro)
@@ -147,8 +194,18 @@ func advance_state(s):
             cat_data[2] = max(0, cat_data[2] - to_convert_bro - to_convert_me)
     
     if last_date["day"] != curr_date["day"]:
+        for region in GameData.data["Regions"]:
+            var boosts = GameData.data["Regions"][region]["Boosts"]
+            var i = 0
+            while i < len(boosts):
+                boosts[i][2] -= 1
+                if boosts[i][2] <= 0:
+                    boosts.remove_at(i)
+                else:
+                    i += 1
+        
         if randf() < event_rate:
-            print("Do a random event")
+            print("Do a random event ", GameData.data["Difficulty"])
         else:
             event_rate += EVENT_RATE_ADD
 
@@ -158,6 +215,8 @@ func _on_shop_button(region):
 
 
 func _on_harvest(region, count):
+    if count == 0:
+        return
     var data = GameData.data["Regions"][region]
     var region_total = 0
     for category in data["Categories"]:
@@ -175,8 +234,16 @@ func _on_harvest(region, count):
             harvested += 1
     GameData.data["Souls"] += count
     data["HarvestedToday"] += count
-    spawn_ghosts(region, log(count) / log(5.0))
+    spawn_ghosts(region, min(count, max(1, log(count) / log(1.5))))
 
 
+var SPAWN_DIST = 130.0
 func spawn_ghosts(region, count):
-    pass
+    var spawn_point = get_node(String(region)).get_child(1).global_position
+    for i in range(count):
+        var angle = randf_range(0, TAU)
+        var dist = SPAWN_DIST * randf()
+        spawn_point += Vector2(sin(angle), cos(angle)) * dist
+        var ghost = GHOST_SCENE.instantiate()
+        $Ghosts.add_child(ghost)
+        ghost.global_position = spawn_point

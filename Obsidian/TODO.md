@@ -3,28 +3,11 @@ Balance
 	Use edicts
 	Shop
 	Difficulty modifiers
-
-Shop
-Stress
 Events
 
-Difficulty options
-Main menu
-Temporary boosts
-Souls on the map
-Autosaving
-
-Leaderboard
-
-By 10
-	Shop
-	Temporary boosts
-	Autosaving
-	Main menu
-By 11
-	Stress
-	Souls on the map
-By 12
-	Events
-By 1
-	Leaderboard
+Issues:
+	Edicts don't display from saves properly
+	After loading from save the tutorial for acolytes will display again
+	Font is kinda shitty
+	More small soul images would be nice
+	Text should come in letter by letter

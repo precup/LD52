@@ -7,6 +7,7 @@ extends PanelContainer
 @onready var SOULS_LABEL = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer16/HSplitContainer/Label2
 @onready var UNUSED_ACOLYTES_LABEL = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer5/HSplitContainer/Label2
 @onready var SHOP_CONTAINER = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer
+@onready var STRESS_BAR: TextureProgressBar = $MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer/OptionButton
 
 var shown_tut = false
 
@@ -36,6 +37,11 @@ func _process(delta):
     FOLLOWERS_LABEL.text = Utils.compress(followers)
     TENT_LABEL.text = Utils.compress(bro_followers)
     SOULS_LABEL.text = Utils.compress(GameData.data["Souls"])
+    STRESS_BAR.value = GameData.data["Stress"]
+    var min_stress = 0.2
+    var max_stress = 0.6
+    var hue_frac = clamp(0, 1, (GameData.data["Stress"] - min_stress) / (max_stress - min_stress))
+    STRESS_BAR.tint_progress = Color.from_hsv((1 - hue_frac) * 110.0 / 255, .5, .47)
     
     var unused_acolytes = 0
     for acolyte in GameData.data["Acolytes"]:

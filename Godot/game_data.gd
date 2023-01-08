@@ -1,6 +1,6 @@
 extends Node
 
-var is_debug = true
+var is_debug = false
 
 var INITIAL_CONVERSION_RATE_1 = 0.01
 var INITIAL_CONVERSION_RATE_2 = 0.01
@@ -15,18 +15,22 @@ var GLOBAL_ENEMY_CONVERT_RATE = 0.01
 
 var START_FLAT_BOOST = 2.0
 
-var EASY_DIFFICULTY = 0.5
+var UNLOSEABLE_DIFFICULTY = 0.5
+var EASY_DIFFICULTY = 0.8
 var NORMAL_DIFFICULTY = 1.0
 var HARD_DIFFICULTY = 1.1
+
+var BASE_DEFENSE = 0.005
+var BASE_ENEMY_DEFENSE = 0.005
 
 var AUTOSAVE_FILENAME = "user://socialmediaety.autosave"
 
 var INITIAL_DATA = {
     "Difficulty": NORMAL_DIFFICULTY,
-    "Stress": 0.0,
+    "Stress": 0.3,
     "Time": 1673208000,
     "Edicts": [1, 1],
-    "Souls": 0,
+    "Souls": 10000000000,
     "Acolytes": [],
     "Upgrades": [
         # Name, cost, bought, displayed
@@ -54,10 +58,10 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 49000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
-            "Boosts": [],
+            "Boosts": [], # Type, target, duration, multiplier, bonus
             "Banned": {},
         },
         "SouthAmerica": {
@@ -68,8 +72,8 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 274000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
             "Boosts": [],
             "Banned": {},
@@ -82,8 +86,8 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 326000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
             "Boosts": [],
             "Banned": {},
@@ -96,8 +100,8 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 12000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
             "Boosts": [],
             "Banned": {},
@@ -110,8 +114,8 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 1164000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
             "Boosts": [],
             "Banned": {},
@@ -124,8 +128,8 @@ var INITIAL_DATA = {
                 "Offline": [0, 0, 3053000000, INITIAL_OFFLINE_CONVERSION_RATE, INITIAL_ENEMY_OFFLINE_CONVERSION_RATE],
             },
             "PriceScale": 1.0,
-            "FollowerDefense": 0.995,
-            "TentDefense": 0.995,
+            "FollowerDefense": BASE_DEFENSE,
+            "TentDefense": BASE_ENEMY_DEFENSE,
             "HarvestedToday": 0,
             "Boosts": [],
             "Banned": {},
@@ -134,6 +138,10 @@ var INITIAL_DATA = {
 }
 
 var data = INITIAL_DATA.duplicate(true)
+
+func reset():
+    data = INITIAL_DATA.duplicate(true)
+
 
 func load_autosave():
     var file = FileAccess.open(AUTOSAVE_FILENAME, FileAccess.READ)

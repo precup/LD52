@@ -1,5 +1,6 @@
 extends Control
 
+@onready var MAIN_MENU = load("res://map.tscn")
 @onready var LABEL = $PanelContainer/MarginContainer/Label
 @onready var BROTHER = $sprites/yall/brothera
 @onready var PLAYER = $sprites/AnimationPlayer
@@ -13,11 +14,16 @@ You'll need 3 billion souls to teleport the planet, and you'll need to do it bef
 You can harvest the souls of your followers at any time, although that will also cause them to die, which makes it difficult for them to post on social media. "
 ]
 
-var state = 22 if GameData.is_debug else 0
+var state = 24 if GameData.is_debug else 0
 
 var display_time = 0
 var delay = 500
 var lines = [""]
+
+func show_start():
+    get_tree().paused = true
+    visible = true
+    advance_state()
 
 
 func show_ending():
@@ -29,23 +35,19 @@ func show_ending():
 func show_failure():
     get_tree().paused = true
     visible = true
-    state = 17
-    advance_state()
-
-
-func _ready():
-    get_tree().paused = true
-    visible = true
+    state = 18
     advance_state()
 
 
 func _input(event):
-    if visible and Input.is_action_just_pressed("continue") and display_time + delay < Time.get_ticks_msec():
+    if visible and not get_tree().get_first_node_in_group("main").visible and Input.is_action_just_pressed("continue") and display_time + delay < Time.get_ticks_msec():
         advance_state()
 
 
 func advance_state():
     display_time = Time.get_ticks_msec()
+    if state == 18:
+        return
     state += 1
     match(state):
         1:
@@ -90,18 +92,20 @@ func advance_state():
         17:
             LABEL.text = "Thanks for playing! -Arch"
         18:
+            get_tree().get_first_node_in_group("leaderboard").display_leaderboard(GameData.data["Time"] - GameData.INITIAL_DATA["Time"], GameData.data["Difficulty"] == GameData.NORMAL_DIFFICULTY)
+        19:
             BROTHER.frame = 0
             LABEL.text = "Your brother ungulates in a very smug manner."
-        19:
-            LABEL.text = ""
         20:
             BROTHER.frame = 6
         21:
             LABEL.text = "Ugh. He's not going to shut up about this for the next million years."
         22:
-            LABEL.text = "Better luck next time! Click to restart."
+            LABEL.text = "Better luck next time!"
         23:
-            GameData.data = GameData.INITIAL_DATA.duplicate(true)
+            get_tree().change_scene_to_packed(MAIN_MENU)
+        25:
+            GameData.reset()
             visible = false
             get_tree().paused = false
             

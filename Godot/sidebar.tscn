@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://de2j3mhs58v7o"]
+[gd_scene load_steps=9 format=3 uid="uid://de2j3mhs58v7o"]
 
 [ext_resource type="Script" path="res://Sidebar.gd" id="1_i33p0"]
 [ext_resource type="StyleBox" uid="uid://bugc84wo78301" path="res://button_normal.tres" id="2_3md70"]
 [ext_resource type="StyleBox" uid="uid://b43o1nyv0s1mf" path="res://button_hover.tres" id="3_6u66h"]
 [ext_resource type="Texture2D" uid="uid://d3genw6pfi88" path="res://you.png" id="4_4ybmg"]
+[ext_resource type="Texture2D" uid="uid://c8xvq1af1t42a" path="res://pogressbar.png" id="4_oa8yw"]
 [ext_resource type="Texture2D" uid="uid://biopvv2wyd7tx" path="res://brother0.png" id="5_71aue"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqiyp"]
@@ -39,23 +40,14 @@ offset_right = 280.0
 offset_bottom = 628.0
 dragger_visibility = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VSplitContainer"]
-offset_right = 260.0
-offset_bottom = 116.0
-theme_override_font_sizes/font_size = 40
-text = "Social Mediæty"
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VSplitContainer"]
-offset_top = 128.0
 offset_right = 260.0
 offset_bottom = 618.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8tq4d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VSplitContainer/PanelContainer"]
 offset_right = 260.0
-offset_bottom = 490.0
+offset_bottom = 618.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
 offset_right = 260.0
@@ -74,10 +66,22 @@ text = "Edicts
 "
 horizontal_alignment = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer13" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
 offset_top = 49.0
 offset_right = 260.0
-offset_bottom = 80.0
+offset_bottom = 53.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="HSeparator3" type="HSeparator" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer13"]
+offset_left = 20.0
+offset_right = 240.0
+offset_bottom = 4.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+offset_top = 57.0
+offset_right = 260.0
+offset_bottom = 88.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
@@ -112,9 +116,9 @@ popup/item_2/text = "Evangelize"
 popup/item_2/id = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 84.0
+offset_top = 92.0
 offset_right = 260.0
-offset_bottom = 115.0
+offset_bottom = 123.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
@@ -148,15 +152,48 @@ popup/item_1/id = 1
 popup/item_2/text = "Daily"
 popup/item_2/id = 2
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 119.0
-offset_right = 260.0
-offset_bottom = 123.0
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer7" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
 offset_top = 127.0
 offset_right = 260.0
-offset_bottom = 163.0
+offset_bottom = 158.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7"]
+offset_left = 10.0
+offset_right = 250.0
+offset_bottom = 26.0
+dragger_visibility = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
+custom_minimum_size = Vector2(79.63, 0)
+offset_right = 79.0
+offset_bottom = 26.0
+text = "Stress"
+
+[node name="OptionButton" type="TextureProgressBar" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer7/HSplitContainer"]
+custom_minimum_size = Vector2(0, 23.571)
+offset_left = 91.0
+offset_right = 240.0
+offset_bottom = 26.0
+max_value = 1.0
+step = 0.01
+value = 0.24
+texture_under = ExtResource("4_oa8yw")
+texture_progress = ExtResource("4_oa8yw")
+tint_under = Color(0.0862745, 0.0862745, 0.0862745, 1)
+tint_progress = Color(0.239216, 0.470588, 0.235294, 1)
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+offset_top = 162.0
+offset_right = 260.0
+offset_bottom = 166.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
+offset_top = 170.0
+offset_right = 260.0
+offset_bottom = 206.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -182,9 +219,9 @@ text = "0
 horizontal_alignment = 2
 
 [node name="MarginContainer8" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 167.0
+offset_top = 210.0
 offset_right = 260.0
-offset_bottom = 193.0
+offset_bottom = 236.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
@@ -208,9 +245,9 @@ text = "0
 horizontal_alignment = 2
 
 [node name="MarginContainer16" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 197.0
+offset_top = 240.0
 offset_right = 260.0
-offset_bottom = 223.0
+offset_bottom = 266.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
@@ -234,9 +271,9 @@ text = "0
 horizontal_alignment = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 227.0
+offset_top = 270.0
 offset_right = 260.0
-offset_bottom = 263.0
+offset_bottom = 306.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
@@ -261,14 +298,14 @@ text = "0
 horizontal_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 267.0
+offset_top = 310.0
 offset_right = 260.0
-offset_bottom = 271.0
+offset_bottom = 314.0
 
 [node name="MarginContainer6" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 275.0
+offset_top = 318.0
 offset_right = 260.0
-offset_bottom = 315.0
+offset_bottom = 358.0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
@@ -284,9 +321,9 @@ text = "Planetwide Shop
 horizontal_alignment = 1
 
 [node name="MarginContainer11" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 319.0
+offset_top = 362.0
 offset_right = 260.0
-offset_bottom = 323.0
+offset_bottom = 366.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 
@@ -296,9 +333,9 @@ offset_right = 240.0
 offset_bottom = 4.0
 
 [node name="MarginContainer12" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer"]
-offset_top = 327.0
+offset_top = 370.0
 offset_right = 260.0
-offset_bottom = 490.0
+offset_bottom = 618.0
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
@@ -306,31 +343,30 @@ theme_override_constants/margin_right = 20
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12"]
 offset_left = 20.0
 offset_right = 240.0
-offset_bottom = 163.0
+offset_bottom = 248.0
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer"]
-offset_right = 212.0
-offset_bottom = 416.0
+offset_right = 220.0
+offset_bottom = 248.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_right = 212.0
-offset_bottom = 26.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -343,22 +379,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 30.0
-offset_right = 212.0
-offset_bottom = 56.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer2"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer2"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -371,22 +405,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer3" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 60.0
-offset_right = 212.0
-offset_bottom = 86.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer3"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer3"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -399,22 +431,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer4" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 90.0
-offset_right = 212.0
-offset_bottom = 116.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer4"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer4"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -427,22 +457,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer5" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 120.0
-offset_right = 212.0
-offset_bottom = 146.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer5"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer5"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -455,22 +483,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer6" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 150.0
-offset_right = 212.0
-offset_bottom = 176.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer6"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer6"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -483,22 +509,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer7" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 180.0
-offset_right = 212.0
-offset_bottom = 206.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer7"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer7"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -511,22 +535,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer8" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 210.0
-offset_right = 212.0
-offset_bottom = 236.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer8"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer8"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -539,22 +561,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer9" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 240.0
-offset_right = 212.0
-offset_bottom = 266.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer9"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer9"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -567,22 +587,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer10" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 270.0
-offset_right = 212.0
-offset_bottom = 296.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer10"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer10"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -595,22 +613,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer11" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 300.0
-offset_right = 212.0
-offset_bottom = 326.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer11"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer11"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -623,22 +639,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer12" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 330.0
-offset_right = 212.0
-offset_bottom = 356.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer12"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer12"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -651,22 +665,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer13" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 360.0
-offset_right = 212.0
-offset_bottom = 386.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer13"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer13"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -679,22 +691,20 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="HSplitContainer14" type="HSplitContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer"]
-offset_top = 390.0
-offset_right = 212.0
-offset_bottom = 416.0
+visible = false
 dragger_visibility = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer14"]
 layout_direction = 2
-offset_right = 137.0
+offset_right = 102.0
 offset_bottom = 26.0
 size_flags_horizontal = 3
 text = "Better Bribes"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VSplitContainer/PanelContainer/VBoxContainer/MarginContainer12/ScrollContainer/VBoxContainer/HSplitContainer14"]
-offset_left = 137.0
-offset_right = 212.0
+offset_left = 102.0
+offset_right = 177.0
 offset_bottom = 26.0
 theme_override_constants/margin_right = 8
 
@@ -707,7 +717,7 @@ theme_override_styles/hover = ExtResource("3_6u66h")
 text = "100M"
 
 [node name="You" type="Sprite2D" parent="."]
-position = Vector2(-38, 29)
+position = Vector2(328, -12)
 scale = Vector2(0.523, 0.523)
 texture = ExtResource("4_4ybmg")
 

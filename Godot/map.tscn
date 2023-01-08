@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://blg66wu2kg1xu"]
+[gd_scene load_steps=20 format=3 uid="uid://blg66wu2kg1xu"]
 
 [ext_resource type="Script" path="res://map.gd" id="1_1cfr0"]
 [ext_resource type="Texture2D" uid="uid://c1xcad80650fn" path="res://map.png" id="1_cjy6w"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dmmw0fkm2vppi" path="res://space.tscn" id="10_v4f57"]
 [ext_resource type="Texture2D" uid="uid://ci2njbpitgtcu" path="res://bulb.png" id="11_6x2gf"]
 [ext_resource type="Script" path="res://space.gd" id="11_wkymw"]
+[ext_resource type="PackedScene" uid="uid://8ixxo2dxg46u" path="res://main.tscn" id="17_y7at1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ube54"]
 bg_color = Color(1, 1, 1, 1)
@@ -42,7 +43,6 @@ script = ExtResource("1_1cfr0")
 
 [node name="Background" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(3840, 2160)
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -51,26 +51,35 @@ grow_vertical = 2
 color = Color(0.458824, 0.576471, 0.784314, 1)
 
 [node name="WorldMap" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 1295.0
 grow_horizontal = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="WorldMap"]
-layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 1295.0
 theme_override_constants/margin_left = 172
 theme_override_constants/margin_top = 55
 theme_override_constants/margin_right = -37
 
 [node name="TextureRect" type="TextureRect" parent="WorldMap/MarginContainer2"]
 custom_minimum_size = Vector2(0, 1080)
-layout_mode = 2
+offset_left = 172.0
+offset_top = 55.0
+offset_right = 1189.0
+offset_bottom = 1295.0
 texture = ExtResource("1_cjy6w")
 ignore_texture_size = true
 
+[node name="Ghosts" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 1295.0
+
 [node name="NorthAmerica" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 328.0
 offset_top = 122.0
@@ -78,10 +87,12 @@ offset_right = 602.0
 offset_bottom = 363.0
 
 [node name="NorthAmerica" parent="NorthAmerica" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="NorthAmerica"]
+position = Vector2(112, 94)
 
 [node name="SouthAmerica" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 375.0
 offset_top = 355.0
@@ -89,10 +100,12 @@ offset_right = 542.0
 offset_bottom = 608.0
 
 [node name="SouthAmerica" parent="SouthAmerica" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="SouthAmerica"]
+position = Vector2(130, 71)
 
 [node name="Africa" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 632.0
 offset_top = 294.0
@@ -100,10 +113,12 @@ offset_right = 800.0
 offset_bottom = 510.0
 
 [node name="Africa" parent="Africa" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="Africa"]
+position = Vector2(111, 52)
 
 [node name="Europe" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 594.0
 offset_top = 74.0
@@ -111,10 +126,12 @@ offset_right = 744.0
 offset_bottom = 223.0
 
 [node name="Europe" parent="Europe" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="Europe"]
+position = Vector2(146, 104)
 
 [node name="Asia" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 887.0
 offset_top = 99.0
@@ -122,10 +139,12 @@ offset_right = 1105.0
 offset_bottom = 323.0
 
 [node name="Asia" parent="Asia" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="Asia"]
+position = Vector2(39, 95)
 
 [node name="Oceania" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 0
 offset_left = 901.0
 offset_top = 375.0
@@ -133,13 +152,13 @@ offset_right = 1059.0
 offset_bottom = 584.0
 
 [node name="Oceania" parent="Oceania" instance=ExtResource("3_vjrkh")]
-layout_mode = 0
+
+[node name="Spawn" type="Node2D" parent="Oceania"]
+position = Vector2(138, 77)
 
 [node name="Sidebar" parent="." instance=ExtResource("4_nic7x")]
-layout_mode = 1
 
 [node name="TimeBar" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -151,83 +170,110 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TimeBar"]
-layout_mode = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 378.0
+offset_bottom = 57.0
 
 [node name="CenterContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 
 [node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer"]
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
 
 [node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer"]
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
 theme_override_styles/normal = ExtResource("3_0sv3k")
 theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  1x  "
 
 [node name="CenterContainer2" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
+offset_left = 45.0
+offset_right = 86.0
+offset_bottom = 37.0
 
 [node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer2"]
 visible = false
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
 
 [node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer2"]
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer2/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
 theme_override_styles/normal = ExtResource("3_0sv3k")
 theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  2x  "
 
 [node name="CenterContainer3" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
+offset_left = 90.0
+offset_right = 131.0
+offset_bottom = 37.0
 
 [node name="PanelContainer" type="PanelContainer" parent="TimeBar/HBoxContainer/CenterContainer3"]
 visible = false
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ube54")
 
 [node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer/CenterContainer3"]
-layout_mode = 2
+offset_right = 41.0
+offset_bottom = 37.0
 theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
 [node name="Button" type="Button" parent="TimeBar/HBoxContainer/CenterContainer3/MarginContainer"]
-layout_mode = 2
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 34.0
 theme_override_styles/normal = ExtResource("3_0sv3k")
 theme_override_styles/hover = ExtResource("4_0ak6d")
 text = "  4x  "
 
 [node name="MarginContainer" type="MarginContainer" parent="TimeBar/HBoxContainer"]
-layout_mode = 2
+offset_left = 135.0
+offset_right = 355.0
+offset_bottom = 37.0
 theme_override_constants/margin_left = 10
 
 [node name="Label" type="Label" parent="TimeBar/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(210, 0)
-layout_mode = 2
+offset_left = 10.0
+offset_right = 220.0
+offset_bottom = 37.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "00:01 2023-01-01"
 
 [node name="Shop" type="MarginContainer" parent="." groups=["shop"]]
-layout_mode = 0
+visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
 theme_override_constants/margin_left = 350
@@ -237,168 +283,227 @@ theme_override_constants/margin_bottom = 50
 script = ExtResource("7_e13tb")
 
 [node name="PanelContainer" type="PanelContainer" parent="Shop"]
-layout_mode = 2
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 1102.0
+offset_bottom = 611.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer"]
-layout_mode = 2
+offset_right = 752.0
+offset_bottom = 561.0
 theme_override_constants/margin_top = -55
 theme_override_constants/margin_right = -96
 
 [node name="TextureRect" type="TextureRect" parent="Shop/PanelContainer/MarginContainer2"]
 custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
+offset_left = 448.0
+offset_top = -55.0
+offset_right = 848.0
+offset_bottom = 345.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("7_4j38p")
 stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer"]
-layout_mode = 2
+offset_right = 752.0
+offset_bottom = 561.0
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Shop/PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 712.0
+offset_bottom = 521.0
 
 [node name="Label" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_right = 672.0
+offset_bottom = 113.0
 theme_override_font_sizes/font_size = 80
 text = "Soul Shop"
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 117.0
+offset_right = 672.0
+offset_bottom = 149.0
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 274
 theme_override_constants/margin_bottom = 14
 
 [node name="HSeparator" type="HSeparator" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
+offset_top = 14.0
+offset_right = 398.0
+offset_bottom = 18.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 153.0
+offset_right = 672.0
+offset_bottom = 501.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_right = 672.0
+offset_bottom = 37.0
 theme_override_font_sizes/font_size = 24
 text = "Buy Targeted Ads"
 
 [node name="Label2" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 41.0
+offset_right = 672.0
+offset_bottom = 93.0
 text = "If you can't pay with money, you can pay with personal data, and what's more personal than a soul?"
 autowrap_mode = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 97.0
+offset_right = 672.0
+offset_bottom = 126.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer"]
-layout_mode = 2
+offset_right = 330.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Boost Eye on V Kontent (100k Souls)"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer"]
-layout_mode = 2
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer2"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Attack Tent on Facepage (100k Souls)"
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 130.0
+offset_right = 672.0
+offset_bottom = 159.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2"]
-layout_mode = 2
+offset_right = 330.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Boost Eye on Twittly (100k Souls)"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2"]
-layout_mode = 2
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer2"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Attack Tent on Twittly (100k Souls)"
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 163.0
+offset_right = 672.0
+offset_bottom = 167.0
 theme_override_constants/margin_bottom = 4
 
 [node name="Label3" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 171.0
+offset_right = 672.0
+offset_bottom = 208.0
 theme_override_font_sizes/font_size = 24
 text = "Bribe Politicians and Rich People"
 
 [node name="Label4" type="Label" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 212.0
+offset_right = 672.0
+offset_bottom = 264.0
 text = "It is well known that politicians don't have souls. You're happy to provide a few spares for their collections."
 autowrap_mode = 2
 
 [node name="HSplitContainer3" type="HSplitContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 268.0
+offset_right = 672.0
+offset_bottom = 297.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3"]
-layout_mode = 2
+offset_right = 330.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Endorse Eye (100k Souls)"
 
 [node name="MarginContainer2" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3"]
-layout_mode = 2
+offset_left = 342.0
+offset_right = 672.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer2"]
-layout_mode = 2
+offset_left = 10.0
+offset_right = 320.0
+offset_bottom = 29.0
 size_flags_horizontal = 3
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
 text = "Disparage Tent (100k Souls)"
 
 [node name="HSplitContainer4" type="MarginContainer" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
+offset_top = 301.0
+offset_right = 672.0
+offset_bottom = 348.0
 theme_override_constants/margin_top = 18
 
 [node name="MarginContainer" type="Button" parent="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4"]
 custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
+offset_left = 472.0
+offset_top = 18.0
+offset_right = 672.0
+offset_bottom = 47.0
 size_flags_horizontal = 8
 theme_override_styles/normal = ExtResource("9_s0114")
 theme_override_styles/hover = ExtResource("10_4mkx8")
@@ -407,7 +512,6 @@ text = "Close"
 [node name="News" type="PanelContainer" parent="."]
 process_mode = 2
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -416,19 +520,25 @@ grow_vertical = 2
 script = ExtResource("7_lad5h")
 
 [node name="PopUp" type="MarginContainer" parent="News"]
-layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
 theme_override_constants/margin_left = 350
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="PanelContainer" type="PanelContainer" parent="News/PopUp"]
-layout_mode = 2
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 1102.0
+offset_bottom = 598.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
 
 [node name="TextureRect" type="TextureRect" parent="News/PopUp/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
+offset_left = 552.0
+offset_right = 752.0
+offset_bottom = 200.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("3_1xiwt")
@@ -436,31 +546,42 @@ ignore_texture_size = true
 stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer"]
-layout_mode = 2
+offset_right = 752.0
+offset_bottom = 548.0
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="VBoxContainer" parent="News/PopUp/PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 712.0
+offset_bottom = 508.0
 
 [node name="Label" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_right = 672.0
+offset_bottom = 113.0
 theme_override_font_sizes/font_size = 80
 text = "BREAKING"
 
 [node name="MarginContainer" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 117.0
+offset_right = 672.0
+offset_bottom = 175.0
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 274
 theme_override_constants/margin_bottom = 40
 
 [node name="HSeparator" type="HSeparator" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
+offset_top = 14.0
+offset_right = 398.0
+offset_bottom = 18.0
 
 [node name="Label2" type="Label" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 179.0
+offset_right = 672.0
+offset_bottom = 401.0
 theme_override_font_sizes/font_size = 24
 text = "Headlines across the world lamented the loss of X of your followers yesterday, but they somehow blamed your brother and called them martyrs. 
 
@@ -468,11 +589,15 @@ Don't they realize the whole point of having followers is to take advantage of t
 autowrap_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 405.0
+offset_right = 672.0
+offset_bottom = 419.0
 theme_override_constants/margin_top = 14
 
 [node name="Label3" type="RichTextLabel" parent="News/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 423.0
+offset_right = 672.0
+offset_bottom = 457.0
 theme_override_font_sizes/italics_font_size = 24
 bbcode_enabled = true
 text = "[i]Tentacruelty has a harder time spreading"
@@ -482,7 +607,6 @@ autowrap_mode = 2
 [node name="Tutorial" type="PanelContainer" parent="." groups=["tutorial"]]
 process_mode = 2
 visible = false
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -491,19 +615,25 @@ grow_vertical = 2
 script = ExtResource("9_550j2")
 
 [node name="PopUp" type="MarginContainer" parent="Tutorial"]
-layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
 theme_override_constants/margin_left = 350
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
 [node name="PanelContainer" type="PanelContainer" parent="Tutorial/PopUp"]
-layout_mode = 2
+offset_left = 350.0
+offset_top = 50.0
+offset_right = 1102.0
+offset_bottom = 598.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gg2kx")
 
 [node name="TextureRect" type="TextureRect" parent="Tutorial/PopUp/PanelContainer"]
 custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
+offset_left = 552.0
+offset_right = 752.0
+offset_bottom = 200.0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("11_6x2gf")
@@ -511,31 +641,42 @@ ignore_texture_size = true
 stretch_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Tutorial/PopUp/PanelContainer"]
-layout_mode = 2
+offset_right = 752.0
+offset_bottom = 548.0
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Tutorial/PopUp/PanelContainer/MarginContainer"]
-layout_mode = 2
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 712.0
+offset_bottom = 508.0
 
 [node name="Label" type="Label" parent="Tutorial/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_right = 672.0
+offset_bottom = 113.0
 theme_override_font_sizes/font_size = 80
 text = "Tutorial"
 
 [node name="MarginContainer" type="MarginContainer" parent="Tutorial/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 117.0
+offset_right = 672.0
+offset_bottom = 175.0
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 274
 theme_override_constants/margin_bottom = 40
 
 [node name="HSeparator" type="HSeparator" parent="Tutorial/PopUp/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
-layout_mode = 2
+offset_top = 14.0
+offset_right = 398.0
+offset_bottom = 18.0
 
 [node name="Label2" type="Label" parent="Tutorial/PopUp/PanelContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
+offset_top = 179.0
+offset_right = 672.0
+offset_bottom = 401.0
 theme_override_font_sizes/font_size = 24
 text = "You've got one follower, ready to spread the bad word. The more faithful you have, especially on social media, the faster your influence will spread. 
 
@@ -545,8 +686,11 @@ autowrap_mode = 2
 [node name="space" parent="." instance=ExtResource("10_v4f57")]
 process_mode = 2
 visible = false
-layout_mode = 1
 script = ExtResource("11_wkymw")
+
+[node name="main" parent="." groups=["main"] instance=ExtResource("17_y7at1")]
+process_mode = 3
+visible = false
 
 [connection signal="harvest" from="NorthAmerica/NorthAmerica" to="." method="_on_harvest"]
 [connection signal="shop_button" from="NorthAmerica/NorthAmerica" to="." method="_on_shop_button"]
@@ -563,4 +707,10 @@ script = ExtResource("11_wkymw")
 [connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [1]]
 [connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer2/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [2]]
 [connection signal="pressed" from="TimeBar/HBoxContainer/CenterContainer3/MarginContainer/Button" to="." method="set_tick_rate_mod" binds= [4]]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer/Button" to="Shop" method="_on_button1_pressed"]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer/MarginContainer2/Button" to="Shop" method="_on_button2_pressed"]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer/Button" to="Shop" method="_on_button3_pressed"]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer2/MarginContainer2/Button" to="Shop" method="_on_button4_pressed"]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer/Button" to="Shop" method="_on_button5_pressed"]
+[connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer3/MarginContainer2/Button" to="Shop" method="_on_button6_pressed"]
 [connection signal="pressed" from="Shop/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HSplitContainer4/MarginContainer" to="Shop" method="_on_margin_container_pressed"]
