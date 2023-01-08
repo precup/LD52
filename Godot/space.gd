@@ -17,7 +17,7 @@ You can harvest the souls of your followers at any time, although that will also
 var state = 24 if GameData.is_debug else 0
 
 var display_time = 0
-var delay = 500
+var delay = 300
 var lines = [""]
 
 func show_start():
@@ -59,7 +59,7 @@ func advance_state():
             PLAYER.play("slide")
             delay = 2000
         4:
-            delay = 500
+            delay = 300
             LABEL.text = "He's basically just a ball of tentacles. Way less cool than eyes, frankly."
         5:
             LABEL.text = "One eon, while floating through the cosmic void, your brother noticed a planet full of life for the harvest..."
@@ -92,6 +92,7 @@ func advance_state():
         17:
             LABEL.text = "Thanks for playing! -Arch"
         18:
+            $PanelContainer.visible = false
             get_tree().get_first_node_in_group("leaderboard").display_leaderboard(GameData.data["Time"] - GameData.INITIAL_DATA["Time"], GameData.data["Difficulty"] == GameData.NORMAL_DIFFICULTY)
         19:
             BROTHER.frame = 0

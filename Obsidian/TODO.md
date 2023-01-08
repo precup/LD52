@@ -4,6 +4,7 @@ Balance
 	Shop
 	Difficulty modifiers
 Events
+	Harvest eligibility
 
 Issues:
 	Edicts don't display from saves properly

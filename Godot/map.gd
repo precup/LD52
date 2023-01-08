@@ -13,9 +13,8 @@ extends Control
 
 var base_tick_rate: float = 18000.0
 var tick_rate_mod: int = 1
-var EVENT_RATE_ADD = 0.01
-var event_rate = EVENT_RATE_ADD
 var STRESS_DECAY = 0.93
+var days_since_event = 0
 
 func set_tick_rate_mod(new_mod):
     tick_rate_mod = new_mod
@@ -204,10 +203,11 @@ func advance_state(s):
                 else:
                     i += 1
         
-        if randf() < event_rate:
-            print("Do a random event ", GameData.data["Difficulty"])
+        var ran_event = get_tree().get_first_node_in_group("news").run_possible_event(last_date["year"], last_date["month"], last_date["day"], false, days_since_event)
+        if ran_event:
+            days_since_event = 0
         else:
-            event_rate += EVENT_RATE_ADD
+            days_since_event += 1
 
 
 func _on_shop_button(region):
@@ -237,7 +237,7 @@ func _on_harvest(region, count):
     spawn_ghosts(region, min(count, max(1, log(count) / log(1.5))))
 
 
-var SPAWN_DIST = 130.0
+var SPAWN_DIST = 110.0
 func spawn_ghosts(region, count):
     var spawn_point = get_node(String(region)).get_child(1).global_position
     for i in range(count):
