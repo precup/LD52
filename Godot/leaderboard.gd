@@ -19,7 +19,7 @@ func display_leaderboard(score, eligible):
     SCORE_LABEL.text = "You beat the game in %.1f days." % days_taken
     SCORE_LABEL.visible = score > 0
     TITLE_LABEL.text = "Congratulations" if score > 0 else "Leaderboard"
-    $HTTPRequest.request("http://catpcha.net/")
+    $HTTPRequest.request("http://143.110.151.156:8097/")
     display_records([])
 
 
@@ -51,7 +51,7 @@ func display_records(records):
 func _on_button_pressed():
     sanitize_name()
     if _score > 0 and len(NAME_TEXT.text) > 0:
-        $HTTPRequest.request("http://catpcha.net/%s/%d" % [NAME_TEXT.text.uri_encode(), _score])
+        $HTTPRequest.request("http://143.110.151.156:8097/%s/%d" % [NAME_TEXT.text.uri_encode(), _score])
 
 
 func _on_http_request_request_completed(result, response_code, headers, body):
