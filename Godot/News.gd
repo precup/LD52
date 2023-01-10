@@ -256,10 +256,9 @@ func display(event_number, event_soc):
                 regions_counts[region] = 0
                 regions_2counts[region] = 0
                 for category in reg_data["Categories"]:
-                    if reg_data["Categories"][category][0] > 0:
-                        regions_counts[region] += reg_data["Categories"][category][0]
-                        regions_2counts[region] += reg_data["Categories"][category][2]
-                        max_count = max(max_count, regions_counts[region])
+                    regions_counts[region] += reg_data["Categories"][category][0]
+                    regions_2counts[region] += reg_data["Categories"][category][2]
+                    max_count = max(max_count, regions_counts[region])
             var i = randi_range(0, len(poss_regions) - 1)
             var add_fraction = max_count / 10 / regions_2counts[poss_regions[i]]
             var reg_data = GameData.data["Regions"][poss_regions[i]]
@@ -279,10 +278,9 @@ func display(event_number, event_soc):
                 regions_counts[region] = 0
                 regions_2counts[region] = 0
                 for category in reg_data["Categories"]:
-                    if reg_data["Categories"][category][0] > 0:
-                        regions_counts[region] += reg_data["Categories"][category][0]
-                        regions_2counts[region] += reg_data["Categories"][category][2]
-                        max_count = max(max_count, regions_counts[region])
+                    regions_counts[region] += reg_data["Categories"][category][0]
+                    regions_2counts[region] += reg_data["Categories"][category][2]
+                    max_count = max(max_count, regions_counts[region])
             var i = randi_range(0, len(poss_regions) - 1)
             var add_fraction = max_count / 10 / regions_2counts[poss_regions[i]]
             var reg_data = GameData.data["Regions"][poss_regions[i]]
